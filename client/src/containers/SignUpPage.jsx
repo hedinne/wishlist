@@ -32,9 +32,28 @@ export default class SignUpPage extends Component {
   processForm(e) {
     e.preventDefault();
 
-    console.log('name: ', this.state.user.name);
-    console.log('email: ', this.state.email.name);
-    console.log('password: ', this.state.password.name);
+    const name = encodeURIComponent(this.state.user.name);
+    const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `name=${name}&email=${email}&password=${password}`;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/auth/signup');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.setState({ errors: {} });
+
+        console.log('The form is valid');
+      } else {
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({ errors });
+      }
+    });
+    xhr.send(formData);
   }
 
   render() {
