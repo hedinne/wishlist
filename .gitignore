@@ -2,6 +2,7 @@
 
 ### Other stuff ###
 Stuff
+client/dist/
 
 ### Node ###
 # Logs
@@ -35,7 +36,6 @@ bower_components
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-client/dist
 
 # Dependency directories
 node_modules
