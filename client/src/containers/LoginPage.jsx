@@ -1,14 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import LoginForm from '../components/LoginForm.jsx';
+import Auth from '../modules/Auth';
 
 
 export default class LoginPage extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
+
+    const storedMessage = localStorage.getItem('successMessage');
+    let successMessage = '';
+
+    if (storedMessage) {
+      successMessage = storedMessage;
+      localStorage.removeItem('successMessage');
+    }
 
     this.state = {
       errors: {},
+      successMessage,
       user: {
         email: '',
         password: '',
@@ -30,11 +40,14 @@ export default class LoginPage extends Component {
     xhr.open('post', '/auth/login');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
+
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         this.setState({ errors: {} });
 
-        console.log('The form is valid');
+        Auth.authenticateUser(xhr.response.token);
+
+        this.context.router.replace('/');
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
@@ -59,8 +72,13 @@ export default class LoginPage extends Component {
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
+        successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );
   }
 }
+
+LoginPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+};

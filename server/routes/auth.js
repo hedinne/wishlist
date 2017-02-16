@@ -16,7 +16,7 @@ function validateSignupForm(payload) {
 
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
     isFormValid = false;
-    errors.email = 'Please provide a correct email address,';
+    errors.email = 'Please provide a correct email address.';
   }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {
@@ -34,7 +34,8 @@ function validateSignupForm(payload) {
   }
 
   return {
-    success: isFormValid,
+    success:
+    isFormValid,
     message,
     errors,
   };
@@ -66,9 +67,8 @@ function validateLoginForm(payload) {
   };
 }
 
-router.post('/signup', (req, res) => {
+router.post('/signup', (req, res, next) => {
   const validationResult = validateSignupForm(req.body);
-
   if (!validationResult.success) {
     return res.status(400).json({
       success: false,
@@ -77,6 +77,7 @@ router.post('/signup', (req, res) => {
     });
   }
 
+
   return passport.authenticate('local-signup', (err) => {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -84,7 +85,7 @@ router.post('/signup', (req, res) => {
           success: false,
           message: 'Check the form for errors.',
           errors: {
-            email: 'This email is already take.',
+            email: 'This email is already taken.',
           },
         });
       }
@@ -102,9 +103,8 @@ router.post('/signup', (req, res) => {
   })(req, res, next);
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   const validationResult = validateLoginForm(req.body);
-
   if (!validationResult.success) {
     return res.status(400).json({
       success: false,
@@ -112,6 +112,7 @@ router.post('/login', (req, res) => {
       errors: validationResult.errors,
     });
   }
+
 
   return passport.authenticate('local-login', (err, token, userData) => {
     if (err) {
@@ -128,9 +129,10 @@ router.post('/login', (req, res) => {
       });
     }
 
+
     return res.json({
       success: true,
-      message: 'You have successfully logged in.',
+      message: 'You have successfully logged in!',
       token,
       user: userData,
     });
