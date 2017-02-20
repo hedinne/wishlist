@@ -7,8 +7,8 @@ require('./server/models').connect(config.dbUri);
 
 const app = express();
 
-app.use(express.static('./server/static'));
-app.use(express.static('./client/dist'));
+// app.use(express.static('./server/static'));
+app.use(express.static('./build'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import Auth from '../modules/Auth';
+require('../styles/global.scss');
 
 
 const Base = ({ children }) => (
   <div>
     <div className="top-bar">
       <div className="top-bar-left">
-        <IndexLink to="/">React App</IndexLink>
+        <IndexLink to="/">Wishlist</IndexLink>
       </div>
 
       {Auth.isUserAuthenticated() ? (

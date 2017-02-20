@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Card, CardTitle, CardText } from 'material-ui';
+import s from './Dashboard.scss';
 
 const Dashboard = ({ secretData }) => (
   <Card className="container">
@@ -7,8 +8,9 @@ const Dashboard = ({ secretData }) => (
       title="Dashboard"
       subtitle="You should get access to this page only after authentication"
     />
+    <p className={s.leyndo}>Prufa</p>
 
-    {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{secretData}</CardText>}
+    {secretData && <CardText>{secretData}</CardText>}
   </Card>
 );
 
