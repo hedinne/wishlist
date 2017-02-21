@@ -7,7 +7,6 @@ require('./server/models').connect(config.dbUri);
 
 const app = express();
 
-// app.use(express.static('./server/static'));
 app.use(express.static('./build'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,5 +28,5 @@ app.use('/api', apiRoutes);
 
 
 app.listen(3000, () => {
-  console.log('🐼  Server is running on http://localhost:3000');
+  console.log('🐼  Server is running on http://localhost:3000 🐼');
 });

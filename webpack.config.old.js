@@ -1,10 +1,14 @@
 const path = require('path');
+const webpack = require('webpack');
 const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const PORT = 3000;
 
 
 module.exports = {
   entry: [
+    `webpack-dev-server/client?http://localhost:${PORT}`,
     path.join(__dirname, '/client/src/app.jsx'),
   ],
 
@@ -19,10 +23,14 @@ module.exports = {
 
       test: /\.jsx?$/,
       include: path.join(__dirname, '/client/src'),
-      loader: 'babel-loader',
-      query: {
-        presets: ['react', 'es2015'],
-      },
+      loader: combineLoaders([{
+        loader: 'react-hot-loader',
+      }, {
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015'],
+        },
+      }]),
     }, {
 
       test: /\.scss$/,
@@ -39,18 +47,20 @@ module.exports = {
       }, {
         loader: 'sass-loader',
       }]),
-    }, {
-      test: /\.(jpg|png)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 25000,
-      },
     }],
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'client/src/template/index.html',
     }),
   ],
+
+  devServer: {
+    inline: true,
+    hot: true,
+    // contentBase: './build',
+    port: PORT,
+  },
 };

@@ -1,0 +1,18 @@
+@import '../styles/Config.scss';
+
+.host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 90vh;
+}
+
+.title {
+  color: $color-heading;
+  font-size: 212px;
+  font-family: $family-fancy;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}

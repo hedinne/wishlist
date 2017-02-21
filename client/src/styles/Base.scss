@@ -1,0 +1,61 @@
+// stylelint-disable selector-no-type
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:300,400,700|Work+Sans:300,400&subset=latin-ext');
+@import './Config.scss';
+
+
+h1 { // Top Logo
+  font-family: $family-fancy;
+  font-weight: 700;
+  font-size: 60px;
+  color: $color-heading;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+h2 { // Login & Tell me More
+  font-family: $family-work;
+  font-weight: 300;
+  font-size: 48px;
+  color: $color-heading;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+h3 { //New Items & Share
+  font-family: $family-work;
+  font-weight: 300;
+  font-size: 35px;
+  color: $color-heading;
+  text-transform: capitalize;
+}
+
+h4 { // List heading
+  font-family: $family-fancy;
+  font-weight: 300;
+  font-size: 30px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+
+  color: $color-text;
+
+  background: $color-background;
+  background-image: url('../../../images/bringthenoise.jpg');
+  background-repeat: repeat;
+}
+
+html {
+  -webkit-overflow-scrolling: touch;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
