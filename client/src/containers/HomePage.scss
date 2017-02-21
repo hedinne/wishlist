@@ -1,11 +1,19 @@
 @import '../styles/Config.scss';
+@import '../styles/Mixins.scss';
+
 
 .host {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
 
-  height: 90vh;
+  height: 100%;
+}
+
+.spacer {
+  @include h2
+
+  margin: 0 $gutter;
 }
 
 .title {
@@ -15,4 +23,9 @@
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
+}
+
+.link {
+  @include h2;
+  text-decoration: none;
 }

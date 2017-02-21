@@ -1,0 +1,21 @@
+@import '../styles/Config.scss';
+@import '../styles/Mixins.scss';
+
+.host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.link {
+  @include h3;
+  text-decoration: none;
+}
+
+.logo {
+  @include h1;
+  text-decoration: none;
+}

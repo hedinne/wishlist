@@ -2,7 +2,6 @@ const path = require('path');
 const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
   entry: [
     path.join(__dirname, '/client/src/app.jsx'),
@@ -32,7 +31,7 @@ module.exports = {
         loader: 'css-loader',
         query: {
           modules: true,
-          localIdentName: '[name]__[local]___[hash:base64:5]',
+          localIdentName: '[name]__[local]___[emoji]',
         },
       }, {
         loader: 'postcss-loader',

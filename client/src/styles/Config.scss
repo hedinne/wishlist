@@ -10,3 +10,32 @@ $color-text: $color-alto;
 
 $family-fancy: 'Josefin Slab', serif;
 $family-work: 'Work Sans', sans-serif;
+
+
+$gutter: 30px;
+$gutter-mobile: $gutter / 2;
+$gutter-desktop: $gutter * 2;
+
+$page-width: 1200px;
+
+$min-1800: 1800px;
+$min-1440: 1440px;
+$min-1280: 1280px;
+$min-1200: 1200px;
+$min-1080: 1080px;
+$min-1024: 1024px;
+$min-960: 960px;
+$min-840: 840px;
+$min-768: 768px;
+$min-720: 720px;
+$min-640: 640px;
+$min-600: 600px;
+$min-560: 560px;
+$min-540: 540px;
+$min-480: 480px;
+$min-375: 375px;
+$min-360: 360px;
+
+$desktop: $min-1200;
+$tablet: $min-768;
+$handset-landscape: $min-600;

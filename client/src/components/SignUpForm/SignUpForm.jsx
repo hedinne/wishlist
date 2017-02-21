@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
+import { CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Input from '../Input/Input.jsx';
+import s from './SignUpForm.scss';
 
 const SignUpForm = ({
   onSubmit,
@@ -10,20 +12,27 @@ const SignUpForm = ({
   errors,
   user,
 }) => (
-  <Card className="container">
+  <div className={s.host}>
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Sign Up</h2>
+      <h3>Sign Up</h3>
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div className="field-line">
-        <TextField
-          floatingLabelText="Name"
+        <Input
+          label="Name"
           name="name"
           errorText={errors.name}
           onChange={onChange}
           value={user.name}
         />
+        {/* <TextField
+          floatingLabelText="Name"
+          name="name"
+          errorText={errors.name}
+          onChange={onChange}
+          value={user.name}
+        /> */}
       </div>
 
       <div className="field-line">
@@ -56,7 +65,7 @@ const SignUpForm = ({
         <Link to={'/login'}>Log in</Link>
       </CardText>
     </form>
-  </Card>
+  </div>
 );
 
 SignUpForm.propTypes = {

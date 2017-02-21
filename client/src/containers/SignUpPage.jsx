@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import SignUpForm from '../components/SignUpForm.jsx';
+import { Link } from 'react-router';
+import SignUpForm from '../components/SignUpForm/SignUpForm.jsx';
+import Top from '../components/Top/Top.jsx';
+import Bottom from '../components/Bottom/Bottom.jsx';
+import s from './SignUpPage.scss';
 
 export default class SignUpPage extends Component {
 
@@ -60,12 +64,27 @@ export default class SignUpPage extends Component {
 
   render() {
     return (
-      <SignUpForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
-      />
+      <div className={s.host}>
+
+        <Top>
+          <Link to="/" className={s.logo}>
+            Wishlist
+          </Link>
+        </Top>
+
+        <SignUpForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={this.state.errors}
+          user={this.state.user}
+        />
+
+        <Bottom>
+          <Link to="/login" className={s.link}>
+            Already have an account?
+          </Link>
+        </Bottom>
+      </div>
     );
   }
 }

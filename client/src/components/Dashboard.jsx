@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { Card, CardTitle, CardText } from 'material-ui';
 import s from './Dashboard.scss';
 
@@ -11,6 +12,7 @@ const Dashboard = ({ secretData }) => (
     <p className={s.leyndo}>Blettatígur</p>
 
     {secretData && <CardText>{secretData}</CardText>}
+    <Link to="/logout">logout</Link>
   </Card>
 );
 
