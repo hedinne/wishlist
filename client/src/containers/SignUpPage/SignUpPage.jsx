@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import SignUpForm from '../components/SignUpForm/SignUpForm.jsx';
-import Top from '../components/Top/Top.jsx';
-import Bottom from '../components/Bottom/Bottom.jsx';
+import SignUpForm from '../../components/SignUpForm/SignUpForm.jsx';
+import Top from '../../components/Top/Top.jsx';
+import Bottom from '../../components/Bottom/Bottom.jsx';
 import s from './SignUpPage.scss';
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 export default class SignUpPage extends Component {
 
@@ -31,25 +34,30 @@ export default class SignUpPage extends Component {
     const password = encodeURIComponent(this.state.user.password);
     const formData = `name=${name}&email=${email}&password=${password}`;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/signup');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({ errors: {} });
+    const fetchInit = {
+      method: 'POST',
+      body: formData,
+      headers: new Headers({
+        'Content-type': 'application/x-www-form-urlencoded',
+      }),
+    };
 
-        localStorage.setItem('successMessage', xhr.response.message);
+    fetch('/auth/signup', fetchInit)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          this.setState({ errors: {} });
 
-        this.context.router.replace('/login');
-      } else {
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
+          localStorage.setItem('successMessage', response.message);
 
-        this.setState({ errors });
-      }
-    });
-    xhr.send(formData);
+          this.context.router.replace('/login');
+        } else {
+          const errors = response.errors ? response.errors : {};
+          errors.summary = response.message;
+          this.setState({ errors });
+        }
+      },
+    );
   }
 
   changeUser(e) {

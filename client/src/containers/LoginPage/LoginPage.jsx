@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import LoginForm from '../components/LoginForm.jsx';
-import Auth from '../modules/Auth';
+import fetch from 'isomorphic-fetch';
+import LoginForm from '../../components/LoginForm/LoginForm.jsx';
+import Auth from '../../modules/Auth';
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 
 export default class LoginPage extends Component {
@@ -36,26 +40,31 @@ export default class LoginPage extends Component {
     const password = encodeURIComponent(this.state.user.password);
     const formData = `email=${email}&password=${password}`;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
+    const fetchInit = {
+      method: 'POST',
+      body: formData,
+      headers: new Headers({
+        'Content-type': 'application/x-www-form-urlencoded',
+      }),
+    };
 
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({ errors: {} });
+    fetch('/auth/login', fetchInit)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          this.setState({ errors: {} });
 
-        Auth.authenticateUser(xhr.response.token);
+          Auth.authenticateUser(response.token);
 
-        this.context.router.replace('/');
-      } else {
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
+          this.context.router.replace('/');
+        } else {
+          const errors = response.errors ? response.errors : {};
+          errors.summary = response.message;
 
-        this.setState({ errors });
-      }
-    });
-    xhr.send(formData);
+          this.setState({ errors });
+        }
+      },
+    );
   }
 
   changeUser(event) {

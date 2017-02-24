@@ -1,14 +1,13 @@
 const path = require('path');
-const webpack = require('webpack');
 const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-const PORT = 3000;
+const webpack = require('webpack');
 
 
 module.exports = {
   entry: [
-    `webpack-dev-server/client?http://localhost:${PORT}`,
+    'webpack/hot/dev-server',
+    'webpack-hot-middleware/client',
     path.join(__dirname, '/client/src/app.jsx'),
   ],
 
@@ -40,27 +39,36 @@ module.exports = {
         loader: 'css-loader',
         query: {
           modules: true,
-          localIdentName: '[name]__[local]___[hash:base64:5]',
+          localIdentName: '[name]__[local]___[emoji]',
         },
       }, {
         loader: 'postcss-loader',
       }, {
         loader: 'sass-loader',
       }]),
+    }, {
+      test: /\.(jpg|png)$/,
+      loader: 'url-loader',
+      options: {
+        limit: 25000,
+      },
     }],
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: 'client/src/template/index.html',
     }),
   ],
 
   devServer: {
-    inline: true,
-    hot: true,
-    // contentBase: './build',
-    port: PORT,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3100',
+        secure: false,
+      },
+    },
   },
 };

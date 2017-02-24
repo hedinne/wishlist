@@ -11,7 +11,7 @@
 }
 
 .spacer {
-  @include h2
+  @include h2;
 
   margin: 0 $gutter;
 }
@@ -23,6 +23,7 @@
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
+
 }
 
 .link {

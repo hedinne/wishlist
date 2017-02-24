@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import Input from '../Input/Input.jsx';
 
 const LoginForm = ({
   onSubmit,
@@ -11,16 +9,16 @@ const LoginForm = ({
   successMessage,
   user,
 }) => (
-  <Card className="container">
+  <div>
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
+      <div>
+        <Input
+          label="Email"
           name="email"
           errorText={errors.email}
           onChange={onChange}
@@ -28,27 +26,26 @@ const LoginForm = ({
         />
       </div>
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
+      <div>
+        <Input
+          label="Password"
           name="password"
-          onChange={onChange}
           errorText={errors.password}
+          onChange={onChange}
           value={user.password}
         />
       </div>
 
-      <div className="field-line">
-        <RaisedButton type="submit" label="Log in" primary />
+      <div>
+        <input type="submit" value="Log in" />
       </div>
 
-      <CardText>
+      <div>
         Dont have an account?
         <Link to={'/signup'}>Create one</Link>
-      </CardText>
+      </div>
     </form>
-  </Card>
+  </div>
 );
 
 LoginForm.propTypes = {

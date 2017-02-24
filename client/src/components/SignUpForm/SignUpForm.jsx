@@ -1,8 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import Input from '../Input/Input.jsx';
 import s from './SignUpForm.scss';
 
@@ -18,7 +15,7 @@ const SignUpForm = ({
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      <div className="field-line">
+      <div>
         <Input
           label="Name"
           name="name"
@@ -26,18 +23,11 @@ const SignUpForm = ({
           onChange={onChange}
           value={user.name}
         />
-        {/* <TextField
-          floatingLabelText="Name"
-          name="name"
-          errorText={errors.name}
-          onChange={onChange}
-          value={user.name}
-        /> */}
       </div>
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
+      <div>
+        <Input
+          label="Email"
           name="email"
           errorText={errors.email}
           onChange={onChange}
@@ -45,25 +35,25 @@ const SignUpForm = ({
         />
       </div>
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
+      <div>
+        <Input
+          label="Password"
           name="password"
-          onChange={onChange}
           errorText={errors.password}
+          onChange={onChange}
           value={user.password}
         />
       </div>
 
-      <div className="button-line">
-        <RaisedButton type="submit" label="Create New Account" primary />
+      <div>
+        <input type="submit" value="Create New Account" />
       </div>
 
-      <CardText>
+      <div>
         Already have an account?
         <Link to={'/login'}>Log in</Link>
-      </CardText>
+      </div>
+
     </form>
   </div>
 );

@@ -1,7 +1,7 @@
 import Base from './containers/Base.jsx';
 import HomePage from './containers/HomePage.jsx';
-import LoginPage from './containers/LoginPage.jsx';
-import SignUpPage from './containers/SignUpPage.jsx';
+import LoginPage from './containers/LoginPage/LoginPage.jsx';
+import SignUpPage from './containers/SignUpPage/SignUpPage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
 import Auth from './modules/Auth';
 
