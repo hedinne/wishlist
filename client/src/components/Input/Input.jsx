@@ -27,7 +27,7 @@ const Input = ({
       value={value}
       className={s.input}
     />
-    <div className={s.error}>{errorText}</div>
+    {errorText && <div className={s.error}>{errorText}</div>}
   </div>
 );
 

@@ -10,5 +10,5 @@ export default class Base extends Component {
 }
 
 Base.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };

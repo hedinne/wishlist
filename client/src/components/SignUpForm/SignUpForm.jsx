@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import Input from '../Input/Input.jsx';
 import s from './SignUpForm.scss';
 
@@ -47,11 +46,6 @@ const SignUpForm = ({
 
       <div>
         <input type="submit" value="Create New Account" />
-      </div>
-
-      <div>
-        Already have an account?
-        <Link to={'/login'}>Log in</Link>
       </div>
 
     </form>

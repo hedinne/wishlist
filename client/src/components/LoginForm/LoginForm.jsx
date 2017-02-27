@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import Input from '../Input/Input.jsx';
 
 const LoginForm = ({
@@ -13,8 +12,8 @@ const LoginForm = ({
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {successMessage && <p>{successMessage}</p>}
+      {errors.summary && <p>{errors.summary}</p>}
 
       <div>
         <Input
@@ -38,11 +37,6 @@ const LoginForm = ({
 
       <div>
         <input type="submit" value="Log in" />
-      </div>
-
-      <div>
-        Dont have an account?
-        <Link to={'/signup'}>Create one</Link>
       </div>
     </form>
   </div>
