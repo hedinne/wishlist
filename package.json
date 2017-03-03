@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
-    "start": "NODE_ENV=production yarn run build && node index.js",
+    "start": "NODE_ENV=production && npm run build && node index.js",
     "build": "rm -rf ./build && webpack -p",
     "db": "mongod --dbpath ./data/db"
   },
@@ -21,9 +21,12 @@
     "babel-plugin-react-css-modules": "^2.2.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
+    "classnames": "^2.2.5",
+    "classnames-loader": "^2.0.0",
     "css-loader": "^0.26.1",
     "es6-promise": "^4.0.5",
     "express": "^4.14.1",
+    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.28.0",
     "isomorphic-fetch": "^2.2.1",

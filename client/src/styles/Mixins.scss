@@ -63,10 +63,18 @@
 @mixin h2 {
   font-family: $family-work;
   font-weight: 300;
-  font-size: 48px;
+  font-size: 24px;
   color: $color-heading;
   text-align: center;
   text-transform: capitalize;
+
+  @include viewport(tablet) {
+    font-size: 30px;
+  }
+  @include viewport(desktop) {
+    font-size: 48px;
+  }
+
 }
 
 @mixin h3 {

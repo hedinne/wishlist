@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import SignUpForm from '../../components/SignUpForm/SignUpForm.jsx';
-import Top from '../../components/Top/Top.jsx';
-import Bottom from '../../components/Bottom/Bottom.jsx';
+import Bar from '../../components/Bar/Bar.jsx';
+import Item from '../../components/Bar/Item.jsx';
 import s from './SignUpPage.scss';
 
 require('es6-promise').polyfill();
@@ -37,18 +36,19 @@ export default class SignUpPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: formData,
-      headers: new Headers({
+      headers: new Headers({ // eslint-disable-line
         'Content-type': 'application/x-www-form-urlencoded',
       }),
     };
 
-    fetch('/auth/signup', fetchInit)
-      .then(res => res.json())
+    fetch('/auth/signup', fetchInit) // eslint-disable-line
+      .then(res => console.log(res))
+      .then((res) => { if (res) { res.json(); } })
       .then((response) => {
         if (response.success) {
           this.setState({ errors: {} });
 
-          localStorage.setItem('successMessage', response.message);
+          localStorage.setItem('successMessage', response.message); // eslint-disable-line
 
           this.context.router.replace('/login');
         } else {
@@ -74,11 +74,9 @@ export default class SignUpPage extends Component {
     return (
       <div className={s.host}>
 
-        <Top>
-          <Link to="/" className={s.logo}>
-            Wishlist
-          </Link>
-        </Top>
+        <Bar>
+          <Item />
+        </Bar>
 
         <SignUpForm
           onSubmit={this.processForm}
@@ -87,11 +85,10 @@ export default class SignUpPage extends Component {
           user={this.state.user}
         />
 
-        <Bottom>
-          <Link to="/login" className={s.link}>
-            Already have an account?
-          </Link>
-        </Bottom>
+        <Bar bottom>
+          <Item to="/login">Already have an account?</Item>
+        </Bar>
+
       </div>
     );
   }

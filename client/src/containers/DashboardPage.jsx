@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard/Dashboard.jsx';
 
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
@@ -12,20 +15,24 @@ export default class DashboardPage extends Component {
   }
 
   componentDidMount() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('get', '/api/dashboard');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // set the authorization HTTP header
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({
-          secretData: xhr.response.message,
-        });
-      }
-    });
-    xhr.send();
+
+    const fetchInit = {
+      method: 'GET',
+      headers: new Headers({ // eslint-disable-line
+        'Content-type': 'application/x-www-form-urlencoded',
+        Authorization: `bearer ${Auth.getToken()}`,
+      }),
+    };
+
+    fetch('/api/dashboard', fetchInit) // eslint-disable-line
+      .then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          this.setState({
+            secretData: response.message,
+          });
+        }
+      });
   }
 
   render() {

@@ -1,5 +1,5 @@
-@import '../styles/Config.scss';
-@import '../styles/Mixins.scss';
+@import '../../styles/Config.scss';
+@import '../../styles/Mixins.scss';
 
 
 .host {
@@ -10,23 +10,18 @@
   height: 100%;
 }
 
-.spacer {
-  @include h2;
-
-  margin: 0 $gutter;
-}
-
 .title {
   color: $color-heading;
-  font-size: 212px;
+  font-size: 55px;
   font-family: $family-fancy;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
 
-}
-
-.link {
-  @include h2;
-  text-decoration: none;
+  @include viewport(tablet) {
+    font-size: 120px;
+  }
+  @include viewport(desktop) {
+    font-size: 212px;
+  }
 }

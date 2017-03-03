@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import LoginForm from '../../components/LoginForm/LoginForm.jsx';
 import Auth from '../../modules/Auth';
-import Top from '../../components/Top/Top.jsx';
-import Bottom from '../../components/Bottom/Bottom.jsx';
+import Bar from '../../components/Bar/Bar.jsx';
+import Item from '../../components/Bar/Item.jsx';
 import s from './LoginPage.scss';
 
 require('es6-promise').polyfill();
@@ -15,12 +14,12 @@ export default class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const storedMessage = localStorage.getItem('successMessage');
+    const storedMessage = localStorage.getItem('successMessage'); // eslint-disable-line
     let successMessage = '';
 
     if (storedMessage) {
       successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
+      localStorage.removeItem('successMessage'); // eslint-disable-line
     }
 
     this.state = {
@@ -46,12 +45,12 @@ export default class LoginPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: formData,
-      headers: new Headers({
+      headers: new Headers({ // eslint-disable-line
         'Content-type': 'application/x-www-form-urlencoded',
       }),
     };
 
-    fetch('/auth/login', fetchInit)
+    fetch('/auth/login', fetchInit) // eslint-disable-line
       .then(res => res.json())
       .then((response) => {
         if (response.success) {
@@ -82,11 +81,9 @@ export default class LoginPage extends Component {
     return (
       <div className={s.host}>
 
-        <Top >
-          <Link to="/" className={s.logo}>
-            Wishlist
-          </Link>
-        </Top>
+        <Bar>
+          <Item />
+        </Bar>
 
         <LoginForm
           onSubmit={this.processForm}
@@ -96,11 +93,9 @@ export default class LoginPage extends Component {
           user={this.state.user}
         />
 
-        <Bottom>
-          <Link to="/signup" className={s.link}>
-            Dont have an account?
-          </Link>
-        </Bottom>
+        <Bar bottom>
+          <Item to="/signup">Dont have an account?</Item>
+        </Bar>
       </div>
     );
   }

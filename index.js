@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
@@ -11,13 +12,14 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 require('./server/models').connect(config.dbUri);
 
 const devEnv = process.env.NODE_ENV === 'development';
+const PORT = process.env.PORT || 3000;
+
 
 const app = express();
 const webpackConfig = devEnv ? require('./webpack.config.dev') : require('./webpack.config');
 const bundler = webpack(webpackConfig);
 
 if (devEnv) {
-
   browserSync({
     server: {
       baseDir: './',
@@ -31,8 +33,10 @@ if (devEnv) {
       ],
     },
     files: [
-      'css/*.css',
-      '*.html',
+      '**/*.css',
+      '**/*.scss',
+      '**/*.html',
+      '**/*.jsx',
     ],
   });
 }
@@ -57,6 +61,12 @@ const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-app.listen(3100, () => {
-  console.log('🐼  Server is running on http://localhost:3100 🐼'); // eslint-disable-line
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
+
+if (!devEnv) {
+  app.listen(PORT, () => {
+    console.log(`🐼  Server is running on http://localhost:${PORT} 🐼`); // eslint-disable-line
+  });
+}

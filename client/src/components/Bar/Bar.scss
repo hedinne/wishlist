@@ -15,3 +15,10 @@
 
   height: 2 * $gutter-desktop;
 }
+
+.bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
+}

@@ -7,7 +7,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import injectTaoEventPlugin from 'react-tap-event-plugin';
 
 import Base from './containers/Base.jsx';
-import HomePage from './containers/HomePage.jsx';
+import HomePage from './containers/HomePage/HomePage.jsx';
 import LoginPage from './containers/LoginPage/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage/SignUpPage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
