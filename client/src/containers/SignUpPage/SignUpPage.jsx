@@ -42,22 +42,21 @@ export default class SignUpPage extends Component {
     };
 
     fetch('/auth/signup', fetchInit) // eslint-disable-line
-      .then(res => console.log(res))
-      .then((res) => { if (res) { res.json(); } })
-      .then((response) => {
-        if (response.success) {
+      .then(res => res.json())
+      .then((res) => {
+        if (res.success) {
           this.setState({ errors: {} });
 
-          localStorage.setItem('successMessage', response.message); // eslint-disable-line
+          localStorage.setItem('successMessage', res.message); // eslint-disable-line
 
           this.context.router.replace('/login');
-        } else {
-          const errors = response.errors ? response.errors : {};
-          errors.summary = response.message;
-          this.setState({ errors });
         }
-      },
-    );
+      })
+      .catch((res) => {
+        const errors = res.errors ? res.errors : {};
+        errors.summary = res.message;
+        this.setState({ errors });
+      });
   }
 
   changeUser(e) {

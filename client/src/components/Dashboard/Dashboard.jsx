@@ -6,8 +6,8 @@ const Dashboard = ({ secretData }) => (
   <div>
     <h3 className={s.leyndo}>Dashboard</h3>
 
-    {secretData && <p>{secretData}</p>}
-    <Link to="/logout">logout</Link>
+    {secretData && <p className={s.leyndo}>{secretData}</p>}
+    <Link className={s.leyndo} to="/logout">Logout</Link>
   </div>
 );
 

@@ -1,45 +1,21 @@
+const WebpackDevServer = require('webpack-dev-server');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
-const browserSync = require('browser-sync');
 const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const wpConfig = require('./webpack.config.dev');
 
 
 require('./server/models').connect(config.dbUri);
 
 const devEnv = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3000;
-
-
+const DEVPORT = process.env.DEVPORT || 3001;
 const app = express();
-const webpackConfig = devEnv ? require('./webpack.config.dev') : require('./webpack.config');
-const bundler = webpack(webpackConfig);
+const compiler = webpack(wpConfig);
 
-if (devEnv) {
-  browserSync({
-    server: {
-      baseDir: './',
-
-      middleware: [
-        webpackDevMiddleware(bundler, {
-          publicPath: webpackConfig.output.publicPath,
-          stats: { colors: true },
-        }),
-        webpackHotMiddleware(bundler),
-      ],
-    },
-    files: [
-      '**/*.css',
-      '**/*.scss',
-      '**/*.html',
-      '**/*.jsx',
-    ],
-  });
-}
 
 app.use(express.static('./build'));
 
@@ -65,8 +41,15 @@ app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-if (!devEnv) {
-  app.listen(PORT, () => {
-    console.log(`🐼  Server is running on http://localhost:${PORT} 🐼`); // eslint-disable-line
+if (devEnv) {
+  const devServer = new WebpackDevServer(compiler, wpConfig.devServer);
+  devServer.listen(DEVPORT, () => {
+    console.log(`Server is running on 🦊  http://localhost:${DEVPORT} 🦊`); // eslint-disable-line
   });
 }
+
+app.listen(PORT, () => {
+  if (!devEnv) {
+    console.log(`🐼  Server is running on http://localhost:${PORT} 🐼`); // eslint-disable-line
+  }
+});

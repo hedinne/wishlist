@@ -26,13 +26,12 @@ export default class DashboardPage extends Component {
 
     fetch('/api/dashboard', fetchInit) // eslint-disable-line
       .then(res => res.json())
-      .then((response) => {
-        if (response.success) {
-          this.setState({
-            secretData: response.message,
-          });
-        }
-      });
+      .then((res) => {
+        this.setState({
+          secretData: res.message,
+        });
+      })
+      .catch(console.log('secretData 💩'));
   }
 
   render() {

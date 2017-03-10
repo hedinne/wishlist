@@ -4,7 +4,7 @@ const router = new express.Router();
 
 router.get('/dashboard', (req, res) => {
   res.status(200).json({
-    message: "You're authorozed to see this secret message.",
+    message: 'Here will your wishlists come.',
   });
 });
 
