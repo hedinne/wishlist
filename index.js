@@ -7,7 +7,6 @@ const config = require('./config');
 const webpack = require('webpack');
 const wpConfig = require('./webpack.config.dev');
 
-
 require('./server/models').connect(config.dbUri);
 
 const devEnv = process.env.NODE_ENV === 'development';
@@ -36,6 +35,17 @@ const authRoutes = require('./server/routes/auth');
 const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
+
+// Muna að eyða!!!!!
+const Users = require('mongoose').model('User');
+app.get('/users', (req, res) => {
+  Users.find((err, user) => {
+    if (err) { console.log(err); }
+    return res.send(user);
+  });
+});
+//
 
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'build', 'index.html'));

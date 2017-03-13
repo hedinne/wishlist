@@ -3,7 +3,7 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, Redirect } from 'react-router';
 import injectTaoEventPlugin from 'react-tap-event-plugin';
 
 import Base from './containers/Base.jsx';
@@ -45,5 +45,6 @@ ReactDom.render((
 
     <Route path="/logout" onEnter={logout} />
 
+    <Redirect from="*" to="/" />
   </Router>
 ), document.getElementById('app')); // eslint-disable-line

@@ -52,19 +52,21 @@ export default class LoginPage extends Component {
 
     fetch('/auth/login', fetchInit) // eslint-disable-line
       .then(res => res.json())
-      .then((res) => {
-        this.setState({ errors: {} });
+      .then((response) => {
+        if (response.success) {
+          this.setState({ errors: {} });
 
-        Auth.authenticateUser(res.token);
+          Auth.authenticateUser(response.token);
 
-        this.context.router.replace('/');
-      })
-      .catch((res) => {
-        const errors = res.errors ? res.errors : {};
-        errors.summary = res.message;
+          this.context.router.replace('/');
+        } else {
+          const errors = response.errors ? response.errors : {};
+          errors.summary = response.message;
 
-        this.setState({ errors });
-      });
+          this.setState({ errors });
+        }
+      },
+    );
   }
 
   changeUser(event) {

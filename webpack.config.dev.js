@@ -2,7 +2,6 @@ const path = require('path');
 const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const PORT = process.env.PORT || 3000;
 const DEVPORT = process.env.DEVPORT || 3001;
@@ -66,29 +65,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'static/template/index.html',
     }),
-    // new FaviconsWebpackPlugin({
-    //   logo: './static/images/fav2.png',
-    //   prefix: 'icons-[hash]/',
-    //   emitStats: false,
-    //   statsFilename: 'iconstats-[hash].json',
-    //   persistentCache: true,
-    //   inject: true,
-    //   background: '#fff',
-    //   title: 'Wishlist',
-    //
-    //   icons: {
-    //     android: true,
-    //     appleIcon: true,
-    //     appleStartup: true,
-    //     coast: false,
-    //     favicons: true,
-    //     firefox: true,
-    //     opengraph: false,
-    //     twitter: false,
-    //     yandex: false,
-    //     windows: false,
-    //   },
-    // }),
   ],
 
   devServer: {
@@ -97,8 +73,9 @@ module.exports = {
     publicPath: '/',
     historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:3000',
-      '/auth': 'http://localhost:3000',
+      '/api': `http://localhost:${PORT}`,
+      '/auth': `http://localhost:${PORT}`,
+      '/auth/login': `http://localhost:${PORT}`,
     },
   },
 };
