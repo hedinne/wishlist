@@ -3,8 +3,8 @@ const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-const PORT = process.env.PORT || 3000;
-const DEVPORT = process.env.DEVPORT || 3001;
+const PORT = process.env.PORT || 3001;
+const DEVPORT = process.env.DEVPORT || 3000;
 
 module.exports = {
   entry: [

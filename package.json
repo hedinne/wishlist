@@ -12,7 +12,8 @@
     "nodemon": "NODE_ENV=development nodemon index.js",
     "start": "node index.js",
     "build": "rm -rf ./build && webpack -p",
-    "db": "mongod --dbpath ./data/db"
+    "db": "mongod --dbpath ./data/db",
+    "heroku-postbuild": "webpack -p"
   },
   "repository": "git@github.com:hedinne/wishlist.git",
   "author": "Hedinn Eiriksson <hedinne@gmail.com>",
