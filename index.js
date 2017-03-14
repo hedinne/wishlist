@@ -7,7 +7,7 @@ const config = require('./config');
 const webpack = require('webpack');
 const wpConfig = require('./webpack.config.dev');
 
-require('./server/models').connect(config.dbUri);
+require('./server/models').connect(process.env.MONGODB_URI || config.dbUri);
 
 const devEnv = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3000;
