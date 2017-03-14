@@ -1,4 +1,3 @@
-const WebpackDevServer = require('webpack-dev-server');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -13,7 +12,6 @@ const devEnv = process.env.NODE_ENV === 'development';
 const PORT = (process.env.NODE_ENV === 'production') ? 5000 : 3000;
 const DEVPORT = process.env.DEVPORT || 3001;
 const app = express();
-const compiler = webpack(wpConfig);
 
 app.use(express.static('./build'));
 
@@ -51,6 +49,8 @@ app.get('*', (request, response) => {
 });
 
 if (devEnv) {
+  const WebpackDevServer = require('webpack-dev-server');
+  const compiler = webpack(wpConfig);
   const devServer = new WebpackDevServer(compiler, wpConfig.devServer);
   devServer.listen(DEVPORT, () => {
     console.log(`Server is running on 🦊  http://localhost:${DEVPORT} 🦊`); // eslint-disable-line
