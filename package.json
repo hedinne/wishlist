@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
     "nodemon": "NODE_ENV=development nodemon index.js",
-    "start": "NODE_ENV=production && npm run build && node index.js",
+    "start": "node index.js",
     "build": "rm -rf ./build && webpack -p",
     "db": "mongod --dbpath ./data/db"
   },
