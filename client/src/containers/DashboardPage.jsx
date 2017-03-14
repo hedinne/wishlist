@@ -15,6 +15,8 @@ export default class DashboardPage extends Component {
     };
     this.onCreateList = this.onCreateList.bind(this);
     this.onCreateItem = this.onCreateItem.bind(this);
+    this.onRemoveItem = this.onRemoveItem.bind(this);
+    this.onRemoveList = this.onRemoveList.bind(this);
   }
 
   componentDidMount() {
@@ -28,10 +30,9 @@ export default class DashboardPage extends Component {
 
     fetch('/api/dashboard', fetchInit) // eslint-disable-line
       .then(res => res.json())
-      // .then(res => console.log(res));
       .then(res => res.data)
       .then((res) => {
-        const temp = this.state.allLists;
+        const temp = [];
         res.map(i => temp.push(i));
         this.setState({
           allLists: temp,
@@ -41,10 +42,6 @@ export default class DashboardPage extends Component {
 
   onCreateItem(e) {
     e.preventDefault();
-
-    console.log(e.target);
-    console.log(e.target.newItem.value);
-    console.log(e.target.id);
 
     const fetchInit = {
       method: 'POST',
@@ -59,15 +56,14 @@ export default class DashboardPage extends Component {
     };
     fetch('/api/create/item', fetchInit) // eslint-disable-line
       .then(res => res.json())
-      .then(res => console.log(res));
-      // .then(res => res.data)
-      // .then((res) => {
-      //   const temp = [];
-      //   res.map(i => temp.push(i));
-      //   this.setState({
-      //     allLists: temp,
-      //   });
-      // });
+      .then(res => res.data)
+      .then((res) => {
+        const temp = [];
+        res.map(i => temp.push(i));
+        this.setState({
+          allLists: temp,
+        });
+      });
     e.target.newItem.value = '';
   }
 
@@ -95,6 +91,83 @@ export default class DashboardPage extends Component {
     e.target.newName.value = '';
   }
 
+  onRemoveItem(e) {
+    e.preventDefault();
+
+    const itemID = e.target.name.split('_')[0];
+    const listID = e.target.name.split('_')[1];
+
+    const temp = this.state.allLists;
+    temp
+      .find(i => i._id === listID)
+      .listItems
+      .splice(
+        temp
+          .find(i => i._id === listID)
+          .listItems
+          .indexOf(
+            temp
+              .find(i => i._id === listID)
+              .listItems
+              .find(i => i._id === itemID),
+          ),
+      1);
+
+    this.setState({ allLists: temp });
+
+    const fetchInit = {
+      method: 'POST',
+      body: qs.stringify({ item: itemID }),
+      headers: new Headers({ // eslint-disable-line
+        'Content-type': 'application/x-www-form-urlencoded',
+        Authorization: `bearer ${Auth.getToken()}`,
+      }),
+    };
+    fetch('api/remove/item', fetchInit)
+      .then(res => res.json())
+      .then(res => res.data)
+      .then((res) => {
+        const tempI = [];
+        res.map(i => tempI.push(i));
+        this.setState({
+          allLists: tempI,
+        });
+      });
+  }
+
+  onRemoveList(e) {
+    e.preventDefault();
+
+    const listID = e.target.name;
+
+    const temp = this.state.allLists;
+    temp.splice(
+      temp.indexOf(
+        temp.find(i => i._id === listID),
+      ),
+    1);
+    this.setState({ allLists: temp });
+
+    const fetchInit = {
+      method: 'POST',
+      body: qs.stringify({ item: listID }),
+      headers: new Headers({ // eslint-disable-line
+        'Content-type': 'application/x-www-form-urlencoded',
+        Authorization: `bearer ${Auth.getToken()}`,
+      }),
+    };
+    fetch('api/remove/list', fetchInit)
+      .then(res => res.json())
+      .then(res => res.data)
+      .then((res) => {
+        const tempI = [];
+        res.map(i => tempI.push(i));
+        this.setState({
+          allLists: tempI,
+        });
+      });
+  }
+
 
   render() {
     return (
@@ -102,6 +175,8 @@ export default class DashboardPage extends Component {
         allLists={this.state.allLists}
         onCreateList={this.onCreateList}
         onCreateItem={this.onCreateItem}
+        onRemoveItem={this.onRemoveItem}
+        onRemoveList={this.onRemoveList}
       />
     );
   }

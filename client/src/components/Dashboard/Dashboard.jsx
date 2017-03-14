@@ -7,6 +7,8 @@ const Dashboard = ({
   allLists,
   onCreateList,
   onCreateItem,
+  onRemoveItem,
+  onRemoveList,
 }) => (
   <div>
     <h3 className={s.leyndo}>Dashboard</h3>
@@ -18,9 +20,17 @@ const Dashboard = ({
       <input type="submit" value="Create" />
     </form>
 
-    {allLists.map(item =>
-      <List list={item} key={item._id} onCreateItem={onCreateItem} />,
-    )}
+    {allLists &&
+      allLists.map(item =>
+        <List
+          list={item}
+          key={item._id}
+          onCreateItem={onCreateItem}
+          onRemoveItem={onRemoveItem}
+          onRemoveList={onRemoveList}
+        />,
+      )
+    }
   </div>
 );
 
@@ -28,6 +38,8 @@ Dashboard.propTypes = {
   allLists: PropTypes.any,
   onCreateList: PropTypes.func,
   onCreateItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  onRemoveList: PropTypes.func,
 };
 
 export default Dashboard;

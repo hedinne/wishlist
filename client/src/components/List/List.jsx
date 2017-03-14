@@ -3,14 +3,26 @@ import React, { PropTypes } from 'react';
 const List = ({
   list,
   onCreateItem,
+  onRemoveItem,
+  onRemoveList,
 }) => (
   <div>
-    <h4>{list.title}</h4>
-    <ul>
+    <h4>
+      {list.title}
+      <span>
+        <button onClick={onRemoveList} name={list._id}> X</button>
+      </span>
+    </h4>
 
-      {list.listItems.map(item => (
-        <li key={item._id}>{item.title}</li>
-      ))}
+    <ul>
+      {list.listItems &&
+        list.listItems.map(item => (
+          <li key={item._id}>
+            {item.title}
+            <span> <button onClick={onRemoveItem} name={`${item._id}_${list._id}`}>X</button></span>
+          </li>
+        ))
+      }
     </ul>
 
     <form action="/" onSubmit={onCreateItem} id={list._id} name="form" >
@@ -22,9 +34,10 @@ const List = ({
 );
 
 List.propTypes = {
-  // onSubmit: PropTypes.func,
   list: PropTypes.any,
   onCreateItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  onRemoveList: PropTypes.func,
 };
 
 export default List;

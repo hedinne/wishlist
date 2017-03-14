@@ -9,6 +9,29 @@ const User = mongoose.model('User');
 const List = mongoose.model('List');
 const ListItem = mongoose.model('ListItem');
 
+function returnAllLists(userId, res) {
+  return User
+    .findById(userId)
+    .populate({
+      path: 'lists',
+      populate: {
+        path: 'listItems',
+      },
+    })
+    .exec((userErr, doc) => {
+      if (userErr) console.log('User.populate 💩', userErr);
+
+      return res.status(200).json({
+        success: true,
+        successMessage: 'Here is the page',
+        data: doc.lists,
+      });
+    });
+}
+
+/**
+ * Send LIST
+ */
 router.get('/dashboard', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const userId = jwt.verify(token, config.jwtSecret).sub;
@@ -18,25 +41,13 @@ router.get('/dashboard', (req, res) => {
     });
   }
 
-  User
-    .findById(userId)
-    .populate({
-      path: 'lists',
-      populate: {
-        path: 'listItems',
-      },
-    })
-    .exec((err, doc) => {
-      if (err) console.log('User.populate 💩', err);
-
-      return res.status(200).json({
-        success: true,
-        successMessage: 'Here is the page',
-        data: doc.lists,
-      });
-    });
+  returnAllLists(userId, res);
 });
 
+
+/**
+ * Create LIST
+ */
 router.post('/create/list', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const userId = jwt.verify(token, config.jwtSecret).sub;
@@ -59,28 +70,20 @@ router.post('/create/list', (req, res) => {
   });
   newList.save();
 
-  User.findOneAndUpdate(userId, {
+  User.findByIdAndUpdate(userId, {
     $push: {
       lists: newList._id,
     },
   }, (err) => {
     if (err) console.log('User.update 💩', err);
+
+    returnAllLists(userId, res);
   });
-
-  User
-    .findById(userId)
-    .populate('lists')
-    .exec((err, user) => {
-      if (err) console.log('User.populate 💩', err);
-
-      return res.status(200).json({
-        success: true,
-        successMessage: 'New list created.',
-        data: user.lists,
-      });
-    });
 });
 
+/**
+ * Create ITEM
+ */
 router.post('/create/item', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const userId = jwt.verify(token, config.jwtSecret).sub;
@@ -107,25 +110,86 @@ router.post('/create/item', (req, res) => {
   });
   newItem.save();
 
-  List.findOneAndUpdate(newItem.owner, {
+  List.findByIdAndUpdate(newItem.owner, {
     $push: {
       listItems: newItem._id,
     },
   }, (err) => {
     if (err) console.log('User.update 💩', err);
+
+    returnAllLists(userId, res);
   });
+});
+
+
+/**
+ * Remove ITEM
+ */
+router.post('/remove/item', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const userId = jwt.verify(token, config.jwtSecret).sub;
+  if (!token || !userId) {
+    return res.status(401).json({
+      success: false, successMessage: 'Token  💩',
+    });
+  }
+
+  const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
+  if (!payload || !payload.item) {
+    return res.status(401).json({
+      success: false, successMessage: 'Payload  💩',
+    });
+  }
+
+  ListItem
+    .findByIdAndRemove(payload.item, {}, (err, doc) => {
+      if (err) console.log('Item Remove 💩', err);
+
+      List
+        .findByIdAndUpdate(doc.owner, {
+          $pull: {
+            listItems: payload.item,
+          },
+        }, (listErr) => {
+          if (listErr) { console.log(listErr); }
+        });
+      returnAllLists(userId, res);
+    });
+});
+
+
+/**
+ * Remove LIST
+ */
+router.post('/remove/list', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const userId = jwt.verify(token, config.jwtSecret).sub;
+  if (!token || !userId) {
+    return res.status(401).json({
+      success: false, successMessage: 'Token  💩',
+    });
+  }
+
+  const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
+  if (!payload || !payload.item) {
+    return res.status(401).json({
+      success: false, successMessage: 'Payload  💩',
+    });
+  }
 
   List
-    .findById(newItem.owner)
-    .populate('listItems')
-    .exec((err, list) => {
-      if (err) console.log('User.populate 💩', err);
+    .findByIdAndRemove(payload.item, {}, (err, doc) => {
+      if (err) console.log('Item Remove 💩', err);
 
-      return res.status(200).json({
-        success: true,
-        successMessage: 'New item created.',
-        data: list,
-      });
+      User
+        .findByIdAndUpdate(doc.owner, {
+          $pull: {
+            lists: payload.item,
+          },
+        }, (listErr) => {
+          if (listErr) { console.log(listErr); }
+        });
+      returnAllLists(userId, res);
     });
 });
 
