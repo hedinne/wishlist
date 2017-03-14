@@ -13,8 +13,8 @@ export default class DashboardPage extends Component {
     this.state = {
       allLists: [],
     };
-
     this.onCreateList = this.onCreateList.bind(this);
+    this.onCreateItem = this.onCreateItem.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +39,44 @@ export default class DashboardPage extends Component {
       });
   }
 
+  onCreateItem(e) {
+    e.preventDefault();
+
+    console.log(e.target);
+    console.log(e.target.newItem.value);
+    console.log(e.target.id);
+
+    const fetchInit = {
+      method: 'POST',
+      body: qs.stringify({
+        title: e.target.newItem.value,
+        owner: e.target.id,
+      }),
+      headers: new Headers({ // eslint-disable-line
+        'Content-type': 'application/x-www-form-urlencoded',
+        Authorization: `bearer ${Auth.getToken()}`,
+      }),
+    };
+    fetch('/api/create/item', fetchInit) // eslint-disable-line
+      .then(res => res.json())
+      .then(res => console.log(res));
+      // .then(res => res.data)
+      // .then((res) => {
+      //   const temp = [];
+      //   res.map(i => temp.push(i));
+      //   this.setState({
+      //     allLists: temp,
+      //   });
+      // });
+    e.target.newItem.value = '';
+  }
+
   onCreateList(e) {
     e.preventDefault();
 
     const fetchInit = {
       method: 'POST',
-      body: qs.stringify({ value: e.target.newName.value }),
+      body: qs.stringify({ title: e.target.newName.value }),
       headers: new Headers({ // eslint-disable-line
         'Content-type': 'application/x-www-form-urlencoded',
         Authorization: `bearer ${Auth.getToken()}`,
@@ -69,6 +101,7 @@ export default class DashboardPage extends Component {
       <Dashboard
         allLists={this.state.allLists}
         onCreateList={this.onCreateList}
+        onCreateItem={this.onCreateItem}
       />
     );
   }
