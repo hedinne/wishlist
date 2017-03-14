@@ -11,4 +11,6 @@ module.exports.connect = (uri) => {
   });
 
   require('./user'); // eslint-disable-line
+  require('./list'); // eslint-disable-line
+  require('./listItem'); // eslint-disable-line
 };

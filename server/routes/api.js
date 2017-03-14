@@ -2,53 +2,78 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const router = new express.Router();
-require('../models/user'); // eslint-disable-line
 const User = mongoose.model('User');
-
+const List = mongoose.model('List');
 
 router.get('/dashboard', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  if (!token) { return res.status(401).end(); }
+  const userId = jwt.verify(token, config.jwtSecret).sub;
+  if (!token || !userId) {
+    return res.status(401).json({
+      success: false, successMessage: 'Token 💩.',
+    });
+  }
 
-  jwt.verify(token, config.jwtSecret, (err, decoded) => {
-    if (err) { return res.status(401).end(); }
+  User
+    .findById(userId)
+    .populate('lists')
+    .exec((err, doc) => {
+      if (err) console.log('User.populate 💩', err);
 
-    const userId = decoded.sub;
-    // User.findById(userId, (userErr, user) => {
-    //   user.list.push(userId);
-    //   user.save();
-    //   return res.status(200).json({
-    //     message: 'Your wishlist:',
-    //     list: user.list,
-    //   });
-    // });
-  });
-  return res.status(200);
+      return res.status(200).json({
+        success: true,
+        successMessage: 'Here is the page',
+        data: doc.lists,
+      });
+    });
 });
 
-router.post('/dashboard/items', (req, res) => {
+
+router.post('/create/list', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  // if (!token) { return res.status(401).end(); }
+  const userId = jwt.verify(token, config.jwtSecret).sub;
+  if (!token || !userId) {
+    return res.status(401).json({
+      success: false, successMessage: 'Token  💩',
+    });
+  }
 
-  jwt.verify(token, config.jwtSecret, (err, decoded) => {
-    const userId = decoded.sub;
+  const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
+  if (!payload || !payload.value) {
+    return res.status(401).json({
+      success: false, successMessage: 'Payload  💩',
+    });
+  }
 
-
-    console.log('Type:', typeof req.body);
-    console.log('Body:', req.body);
-
-    // User.findById(userId, (userErr, user) => {
-    //   user.list.push(req.body.value);
-    //   user.save();
-    // });
+  const newList = new List({
+    title: payload.value,
+    owner: userId,
   });
-  return res.status(200).json({
-    success: true,
-    message: 'Hlutur móttekinn',
-    item: req.body,
+  newList.save();
+
+  User.findOneAndUpdate(userId, {
+    $push: {
+      lists: newList._id,
+    },
+  }, (err) => {
+    if (err) console.log('User.update 💩', err);
   });
+
+  User
+    .findById(userId)
+    .populate('lists')
+    .exec((err, user) => {
+      if (err) console.log('User.populate 💩', err);
+
+      return res.status(200).json({
+        success: true,
+        successMessage: 'New list created.',
+        data: user.lists,
+      });
+    });
 });
 
 module.exports = router;

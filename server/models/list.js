@@ -11,10 +11,6 @@ const ListSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'ListItem',
   }],
-  doneItems: [{
-    type: Schema.Types.ObjectId,
-    ref: 'ListItem',
-  }],
 });
 
 module.exports = mongoose.model('List', ListSchema);

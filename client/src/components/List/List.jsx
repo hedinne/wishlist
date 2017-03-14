@@ -1,27 +1,19 @@
 import React, { PropTypes } from 'react';
 
-const List = ({ onSubmit, onChange, list }) => (
+const List = ({ list }) => (
   <div>
-    {list && (
-      <ul>
-        {list.map((item, index) => <li key={`key${index}`}>{item}</li>)}
-      </ul>
-    )}
+    <h4>{list.title}</h4>
 
-    <form
-      action="/"
-      onSubmit={onSubmit}
-    >
-      <input type="text" name="newItem" onChange={onChange} id="theNewGuy" />
-      <input type="submit" value="Send" />
-    </form>
+    {/* <ul>
+      {list.map(item => <li key={item._id}>{item.title}</li>)}
+    </ul> */}
   </div>
 );
 
 List.propTypes = {
-  onSubmit: PropTypes.func,
-  list: PropTypes.node,
-  onChange: PropTypes.func,
+  // onSubmit: PropTypes.func,
+  list: PropTypes.any,
+  // onChange: PropTypes.func,
 };
 
 export default List;

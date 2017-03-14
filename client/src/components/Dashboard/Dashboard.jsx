@@ -4,29 +4,27 @@ import s from './Dashboard.scss';
 import List from '../List/List.jsx';
 
 const Dashboard = ({
-  secretData,
-  list,
-  onSubmit,
-  onChange,
+  allLists,
+  onCreateList,
 }) => (
   <div>
     <h3 className={s.leyndo}>Dashboard</h3>
-
-    {secretData && <p className={s.leyndo}>{secretData}</p>}
     <Link className={s.leyndo} to="/logout">Logout</Link>
-    <List
-      onSubmit={onSubmit}
-      onChange={onChange}
-      list={list}
-    />
+    <h2>Space</h2>
+    <form action="/" onSubmit={onCreateList} >
+      <input type="text" name="newName" />
+      <input type="submit" value="Create" />
+    </form>
+
+    {allLists.map(item =>
+      <List list={item} key={item._id} />,
+    )}
   </div>
 );
 
 Dashboard.propTypes = {
-  secretData: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func,
-  onChange: PropTypes.func,
-  list: PropTypes.node,
+  allLists: PropTypes.any,
+  onCreateList: PropTypes.func,
 };
 
 export default Dashboard;

@@ -6,6 +6,7 @@ const ListItemSchema = new mongoose.Schema({
   description: String,
   link: String,
   price: String,
+  marked: { type: Boolean, default: false },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'List',
