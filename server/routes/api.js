@@ -8,6 +8,8 @@ const router = new express.Router();
 const User = mongoose.model('User');
 const List = mongoose.model('List');
 const ListItem = mongoose.model('ListItem');
+const jwtSecret = process.env.JWTSECRET || config.jwtSecret;
+
 
 function returnAllLists(userId, res) {
   return User
@@ -34,7 +36,7 @@ function returnAllLists(userId, res) {
  */
 router.get('/dashboard', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const userId = jwt.verify(token, config.jwtSecret).sub;
+  const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
       success: false, successMessage: 'Token 💩.',
@@ -50,7 +52,7 @@ router.get('/dashboard', (req, res) => {
  */
 router.post('/create/list', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const userId = jwt.verify(token, config.jwtSecret).sub;
+  const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
       success: false, successMessage: 'Token  💩',
@@ -86,7 +88,7 @@ router.post('/create/list', (req, res) => {
  */
 router.post('/create/item', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const userId = jwt.verify(token, config.jwtSecret).sub;
+  const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
       success: false, successMessage: 'Token  💩',
@@ -127,7 +129,7 @@ router.post('/create/item', (req, res) => {
  */
 router.post('/remove/item', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const userId = jwt.verify(token, config.jwtSecret).sub;
+  const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
       success: false, successMessage: 'Token  💩',
@@ -163,7 +165,7 @@ router.post('/remove/item', (req, res) => {
  */
 router.post('/remove/list', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const userId = jwt.verify(token, config.jwtSecret).sub;
+  const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
       success: false, successMessage: 'Token  💩',

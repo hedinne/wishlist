@@ -1,4 +1,4 @@
 {
-  "dbUri": "mongodb://localhost/wishlist2",
-  "jwtSecret": "leynihesturabeitsemerekkigeit"
+  "dbUri": "mongodb://localhost/wishlist",
+  "jwtSecret": "NotTheRealSecretOrIsIt"
 }
