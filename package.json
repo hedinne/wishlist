@@ -5,7 +5,7 @@
   "main": "index.js",
   "engines": {
     "node": "^7.5.0",
-    "npm": "^4.4.1",
+    "npm": "^4.4.1"
   },
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
