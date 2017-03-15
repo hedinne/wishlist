@@ -22,7 +22,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {
-        presets: ['react', 'es2015'],
+        presets: ['es2015', 'react'],
       },
     }, {
 
@@ -35,7 +35,11 @@ module.exports = {
         loader: 'css-loader',
         query: {
           modules: true,
-          localIdentName: '[hash:6]',
+          localIdentName: '[hash:base64:5]',
+          includePaths: [
+            'client/src/styles',
+            './client/src/styles',
+          ],
         },
       }, {
         loader: 'postcss-loader',
