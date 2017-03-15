@@ -27,6 +27,7 @@ module.exports = {
     }, {
 
       test: /\.scss$/,
+      include: path.join(__dirname, '/client/src'),
       loader: combineLoaders([{
         loader: 'classnames-loader',
       }, {
