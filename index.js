@@ -9,7 +9,7 @@ const wpConfig = require('./webpack.config.dev');
 require('./server/models').connect(process.env.MONGODB_URI || config.dbUri);
 
 const devEnv = process.env.NODE_ENV === 'development';
-const PORT = (process.env.NODE_ENV === 'production') ? 5000 : 3001;
+const PORT = process.env.PORT || 3001;
 const DEVPORT = process.env.DEVPORT || 3000;
 const app = express();
 
