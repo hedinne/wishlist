@@ -1,3 +1,5 @@
+/* eslint no-undef: "off" */
+
 import React, { Component, PropTypes } from 'react';
 import SignUpForm from '../../components/SignUpForm/SignUpForm.jsx';
 import Bar from '../../components/Bar/Bar.jsx';
@@ -36,20 +38,20 @@ export default class SignUpPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: formData,
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
       }),
     };
 
-    fetch('/auth/signup', fetchInit) // eslint-disable-line
+    fetch('/auth/signup', fetchInit)
       .then(res => res.json())
       .then((response) => {
         if (response.success) {
           this.setState({ errors: {} });
 
-          localStorage.setItem('successMessage', response.message); // eslint-disable-line
+          localStorage.setItem('successMessage', response.message);
 
-          this.context.router.replace('/login');
+          this.context.router.replace('/signin');
         } else {
           const errors = response.errors ? response.errors : {};
           errors.summary = response.message;
@@ -85,7 +87,7 @@ export default class SignUpPage extends Component {
         />
 
         <Bar bottom>
-          <Item to="/login">Already have an account?</Item>
+          <Item to="/signin">Already have an account?</Item>
         </Bar>
 
       </div>

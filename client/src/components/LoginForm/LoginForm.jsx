@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Input from '../Input/Input.jsx';
+import s from './LoginForm.scss';
 
 const LoginForm = ({
   onSubmit,
@@ -8,38 +9,34 @@ const LoginForm = ({
   successMessage,
   user,
 }) => (
-  <div>
-    <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Login</h2>
+  <form action="/" onSubmit={onSubmit} className={s.host}>
+    <div className={s.container}>
+      <h2 className={s.heading}>Sign In</h2>
 
-      {successMessage && <p>{successMessage}</p>}
-      {errors.summary && <p>{errors.summary}</p>}
+      {successMessage && <p className={s.error}>{successMessage}</p>}
+      {errors.summary && <p className={s.error}>{errors.summary}</p>}
+    </div>
 
-      <div>
-        <Input
-          label="Email"
-          name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
+    <Input
+      label="Email"
+      name="email"
+      errorText={errors.email}
+      onChange={onChange}
+      value={user.email}
+      required
+    />
 
-      <div>
-        <Input
-          label="Password"
-          name="password"
-          errorText={errors.password}
-          onChange={onChange}
-          value={user.password}
-        />
-      </div>
+    <Input
+      label="Password"
+      name="password"
+      errorText={errors.password}
+      onChange={onChange}
+      value={user.password}
+      required
+    />
 
-      <div>
-        <input type="submit" value="Log in" />
-      </div>
-    </form>
-  </div>
+    <input type="submit" value="Log in" className={s.button} />
+  </form>
 );
 
 LoginForm.propTypes = {

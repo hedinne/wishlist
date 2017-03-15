@@ -8,48 +8,40 @@ const SignUpForm = ({
   errors,
   user,
 }) => (
-  <div className={s.host}>
-    <form action="/" onSubmit={onSubmit}>
-      <h3>Sign Up</h3>
+  <form action="/" onSubmit={onSubmit} className={s.host}>
+    <h2 className={s.heading}>Sign In</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+    {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      <div>
-        <Input
-          label="Name"
-          name="name"
-          errorText={errors.name}
-          onChange={onChange}
-          value={user.name}
-        />
-      </div>
+    <Input
+      label="Name"
+      name="name"
+      errorText={errors.name}
+      onChange={onChange}
+      value={user.name}
+      required
+    />
 
-      <div>
-        <Input
-          label="Email"
-          name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
+    <Input
+      label="Email"
+      name="email"
+      errorText={errors.email}
+      onChange={onChange}
+      value={user.email}
+      required
+    />
 
-      <div>
-        <Input
-          label="Password"
-          name="password"
-          errorText={errors.password}
-          onChange={onChange}
-          value={user.password}
-        />
-      </div>
+    <Input
+      label="Password"
+      name="password"
+      errorText={errors.password}
+      onChange={onChange}
+      value={user.password}
+    />
 
-      <div>
-        <input type="submit" value="Create New Account" />
-      </div>
+    <input type="submit" value="Create New Account" className={s.button} />
 
-    </form>
-  </div>
+  </form>
 );
 
 SignUpForm.propTypes = {

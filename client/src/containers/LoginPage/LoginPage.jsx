@@ -1,3 +1,5 @@
+/* eslint no-undef: "off" */
+
 import React, { Component, PropTypes } from 'react';
 import LoginForm from '../../components/LoginForm/LoginForm.jsx';
 import Auth from '../../modules/Auth';
@@ -14,12 +16,12 @@ export default class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const storedMessage = localStorage.getItem('successMessage'); // eslint-disable-line
+    const storedMessage = localStorage.getItem('successMessage');
     let successMessage = '';
 
     if (storedMessage) {
       successMessage = storedMessage;
-      localStorage.removeItem('successMessage'); // eslint-disable-line
+      localStorage.removeItem('successMessage');
     }
 
     this.state = {
@@ -45,12 +47,12 @@ export default class LoginPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: formData,
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
       }),
     };
 
-    fetch('/auth/login', fetchInit) // eslint-disable-line
+    fetch('/auth/login', fetchInit)
       .then(res => res.json())
       .then((response) => {
         if (response.success) {
@@ -94,7 +96,7 @@ export default class LoginPage extends Component {
         />
 
         <Bar bottom>
-          <Item to="/signup">Dont have an account?</Item>
+          <Item to="/register">Don&apos;t have an account?</Item>
         </Bar>
       </div>
     );

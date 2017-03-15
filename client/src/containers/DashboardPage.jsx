@@ -1,3 +1,5 @@
+/* eslint no-undef: "off" */
+
 import React, { Component } from 'react';
 import qs from 'qs';
 import Auth from '../modules/Auth';
@@ -22,13 +24,13 @@ export default class DashboardPage extends Component {
   componentDidMount() {
     const fetchInit = {
       method: 'GET',
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
         Authorization: `bearer ${Auth.getToken()}`,
       }),
     };
 
-    fetch('/api/dashboard', fetchInit) // eslint-disable-line
+    fetch('/api/dashboard', fetchInit)
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -49,12 +51,12 @@ export default class DashboardPage extends Component {
         title: e.target.newItem.value,
         owner: e.target.id,
       }),
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
         Authorization: `bearer ${Auth.getToken()}`,
       }),
     };
-    fetch('/api/create/item', fetchInit) // eslint-disable-line
+    fetch('/api/create/item', fetchInit)
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -78,7 +80,7 @@ export default class DashboardPage extends Component {
         Authorization: `bearer ${Auth.getToken()}`,
       }),
     };
-    fetch('/api/create/list', fetchInit) // eslint-disable-line
+    fetch('/api/create/list', fetchInit)
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -118,7 +120,7 @@ export default class DashboardPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: qs.stringify({ item: itemID }),
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
         Authorization: `bearer ${Auth.getToken()}`,
       }),
@@ -151,7 +153,7 @@ export default class DashboardPage extends Component {
     const fetchInit = {
       method: 'POST',
       body: qs.stringify({ item: listID }),
-      headers: new Headers({ // eslint-disable-line
+      headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
         Authorization: `bearer ${Auth.getToken()}`,
       }),

@@ -67,6 +67,7 @@
   color: $color-heading;
   text-align: center;
   text-transform: capitalize;
+  font-feature-settings: "swsh" 2;
 
   @include viewport(tablet) {
     font-size: 30px;
@@ -80,9 +81,17 @@
 @mixin h3 {
   font-family: $family-work;
   font-weight: 300;
-  font-size: 35px;
+  font-size: 25px;
   color: $color-heading;
   text-transform: capitalize;
+  font-feature-settings: "swsh" 2;
+
+  @include viewport(tablet) {
+    font-size: 30px;
+  }
+  @include viewport(desktop) {
+    font-size: 35px;
+  }
 }
 
 @mixin h4 {

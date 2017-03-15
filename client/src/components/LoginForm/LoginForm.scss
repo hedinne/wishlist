@@ -2,8 +2,6 @@
 @import '../../styles/Mixins.scss';
 
 .host {
-  @include container();
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +25,7 @@
   @include h3;
 
   width: 100%;
-  max-width: 80%;
+  max-width: 60%;
 
   color: transparentize($color-text, 0.5);
 

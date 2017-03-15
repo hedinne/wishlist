@@ -9,11 +9,12 @@
 }
 
 .link {
-  @include h2;
+  @include h3;
   text-decoration: none;
 
   &:hover {
-    text-decoration: line-through;
+    color: $color-text;
+    border-bottom: 1px solid $color-text;
   }
 }
 

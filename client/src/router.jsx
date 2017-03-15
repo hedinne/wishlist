@@ -6,7 +6,7 @@ import ReactDom from 'react-dom';
 import { Router, Route, browserHistory, Redirect } from 'react-router';
 import injectTaoEventPlugin from 'react-tap-event-plugin';
 
-import Base from './containers/Base.jsx';
+import Base from './containers/Base/Base.jsx';
 import HomePage from './containers/HomePage/HomePage.jsx';
 import LoginPage from './containers/LoginPage/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage/SignUpPage.jsx';
@@ -40,10 +40,10 @@ ReactDom.render((
 
     <Route component={Base} childRoutes={startPage} />
 
-    <Route path="/signup" component={SignUpPage} />
-    <Route path="/login" component={LoginPage} />
+    <Route path="/register" component={SignUpPage} />
+    <Route path="/signin" component={LoginPage} />
 
-    <Route path="/logout" onEnter={logout} />
+    <Route path="/signout" onEnter={logout} />
 
     <Redirect from="*" to="/" />
   </Router>

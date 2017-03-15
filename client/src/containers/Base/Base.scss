@@ -1,0 +1,6 @@
+@import '../../styles/Config.scss';
+@import '../../styles/Mixins.scss';
+
+.host {
+  @include container();
+}

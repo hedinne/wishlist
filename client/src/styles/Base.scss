@@ -38,6 +38,8 @@ body {
 }
 
 html {
+  background: $color-background;
+
   -webkit-overflow-scrolling: touch;
 
   overflow-x: hidden;

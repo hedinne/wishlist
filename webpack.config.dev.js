@@ -18,6 +18,7 @@ module.exports = {
     filename: 'bundle.js',
   },
 
+
   module: {
 
     rules: [{
@@ -43,6 +44,7 @@ module.exports = {
         loader: 'css-loader',
         query: {
           modules: true,
+          importLoaders: 1,
           localIdentName: '[name]__[local]___[emoji:3]',
         },
       }, {

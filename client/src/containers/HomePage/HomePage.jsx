@@ -8,8 +8,8 @@ const HomePage = () => (
   <div className={s.host}>
 
     <Bar>
-      <Item to="/login">Log In</Item>
-      <Item to="/signup">Register</Item>
+      <Item to="/signin">Sign In</Item>
+      <Item to="/register">Register</Item>
     </Bar>
 
     <div className={s.title}>

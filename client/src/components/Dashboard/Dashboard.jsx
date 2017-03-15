@@ -12,7 +12,7 @@ const Dashboard = ({
 }) => (
   <div>
     <h3 className={s.leyndo}>Dashboard</h3>
-    <Link className={s.leyndo} to="/logout">Logout</Link>
+    <Link className={s.leyndo} to="/signout">Logout</Link>
     <h2>Space</h2>
     <form action="/" onSubmit={onCreateList} >
       <p>List</p>

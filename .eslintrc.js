@@ -4,6 +4,7 @@ module.exports = {
     "padded-blocks": 0,
     "consistent-return": 0,
     "no-underscore-dangle": 0,
+    "no-param-reassign": 0,
     "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
     "react/prefer-stateless-function": 0,
