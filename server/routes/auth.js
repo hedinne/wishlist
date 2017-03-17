@@ -98,7 +98,7 @@ router.post('/signup', (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: 'You have successfully signed up! Now you should be able to log in.',
+      message: 'You have successfully signed up!',
     });
   })(req, res, next);
 });

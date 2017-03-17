@@ -11,8 +11,8 @@ function type(name) {
 }
 
 export default class Input extends Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       focus: false,

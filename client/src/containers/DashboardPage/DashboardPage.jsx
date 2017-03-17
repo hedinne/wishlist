@@ -2,11 +2,19 @@
 
 import React, { Component } from 'react';
 import qs from 'qs';
-import Auth from '../modules/Auth';
-import Dashboard from '../components/Dashboard/Dashboard.jsx';
+import Auth from '../../modules/Auth';
+import Dashboard from '../../components/Dashboard/Dashboard.jsx';
 
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+function postInit(payload) {
+  return {
+    method: 'POST',
+    body: qs.stringify(payload),
+    headers: new Headers({
+      'Content-type': 'application/x-www-form-urlencoded',
+      Authorization: `bearer ${Auth.getToken()}`,
+    }),
+  };
+}
 
 export default class DashboardPage extends Component {
   constructor(props) {
@@ -22,7 +30,7 @@ export default class DashboardPage extends Component {
   }
 
   componentDidMount() {
-    const fetchInit = {
+    const getInit = {
       method: 'GET',
       headers: new Headers({
         'Content-type': 'application/x-www-form-urlencoded',
@@ -30,7 +38,7 @@ export default class DashboardPage extends Component {
       }),
     };
 
-    fetch('/api/dashboard', fetchInit)
+    fetch('/api/dashboard', getInit)
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -45,18 +53,13 @@ export default class DashboardPage extends Component {
   onCreateItem(e) {
     e.preventDefault();
 
-    const fetchInit = {
-      method: 'POST',
-      body: qs.stringify({
+
+    fetch('/api/create/item', postInit(
+      {
         title: e.target.newItem.value,
         owner: e.target.id,
       }),
-      headers: new Headers({
-        'Content-type': 'application/x-www-form-urlencoded',
-        Authorization: `bearer ${Auth.getToken()}`,
-      }),
-    };
-    fetch('/api/create/item', fetchInit)
+    )
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {

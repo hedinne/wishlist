@@ -1,14 +1,12 @@
 /* eslint no-undef: "off" */
 
 import React, { Component, PropTypes } from 'react';
+import { Redirect } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm.jsx';
 import Auth from '../../modules/Auth';
 import Bar from '../../components/Bar/Bar.jsx';
 import Item from '../../components/Bar/Item.jsx';
 import s from './LoginPage.scss';
-
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
 
 
 export default class LoginPage extends Component {
@@ -26,6 +24,7 @@ export default class LoginPage extends Component {
 
     this.state = {
       errors: {},
+      push: false,
       successMessage,
       user: {
         email: '',
@@ -60,7 +59,7 @@ export default class LoginPage extends Component {
 
           Auth.authenticateUser(response.token);
 
-          this.context.router.replace('/');
+          this.setState({ push: true });
         } else {
           const errors = response.errors ? response.errors : {};
           errors.summary = response.message;
@@ -98,6 +97,7 @@ export default class LoginPage extends Component {
         <Bar bottom>
           <Item to="/register">Don&apos;t have an account?</Item>
         </Bar>
+        {this.state.push && <Redirect push to="/" />}
       </div>
     );
   }

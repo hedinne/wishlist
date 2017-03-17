@@ -1,13 +1,11 @@
 /* eslint no-undef: "off" */
 
 import React, { Component, PropTypes } from 'react';
+import { Redirect } from 'react-router-dom';
 import SignUpForm from '../../components/SignUpForm/SignUpForm.jsx';
 import Bar from '../../components/Bar/Bar.jsx';
 import Item from '../../components/Bar/Item.jsx';
 import s from './SignUpPage.scss';
-
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
 
 export default class SignUpPage extends Component {
 
@@ -15,6 +13,7 @@ export default class SignUpPage extends Component {
     super(props, context);
 
     this.state = {
+      push: false,
       errors: {},
       user: {
         email: '',
@@ -51,7 +50,8 @@ export default class SignUpPage extends Component {
 
           localStorage.setItem('successMessage', response.message);
 
-          this.context.router.replace('/signin');
+          // this.context.router.replace('/signin');
+          this.setState({ push: true });
         } else {
           const errors = response.errors ? response.errors : {};
           errors.summary = response.message;
@@ -87,9 +87,10 @@ export default class SignUpPage extends Component {
         />
 
         <Bar bottom>
-          <Item to="/signin">Already have an account?</Item>
+          <Item to="/login">Already have an account?</Item>
         </Bar>
 
+        {this.state.push && <Redirect push to="/login" />}
       </div>
     );
   }

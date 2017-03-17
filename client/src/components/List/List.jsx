@@ -18,8 +18,8 @@ const List = ({
       {list.listItems &&
         list.listItems.map(item => (
           <li key={item._id}>
+            <span><button onClick={onRemoveItem} name={`${item._id}_${list._id}`}>X </button> </span>
             {item.title}
-            <span> <button onClick={onRemoveItem} name={`${item._id}_${list._id}`}>X</button></span>
           </li>
         ))
       }

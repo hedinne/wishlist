@@ -10,7 +10,7 @@ module.exports = {
   entry: [
     `webpack-dev-server/client?http://localhost:${DEVPORT}`,
     'webpack/hot/dev-server',
-    path.join(__dirname, '/client/src/router.jsx'),
+    path.join(__dirname, '/client/src/App.jsx'),
   ],
 
   output: {

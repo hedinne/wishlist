@@ -38,7 +38,7 @@ app.get('*', (request, response) => {
 });
 
 if (devEnv) {
-  const WebpackDevServer = require('webpack-dev-server');
+  const WebpackDevServer = require('webpack-dev-server'); // eslint-disable-line
   const compiler = webpack(wpConfig);
   const devServer = new WebpackDevServer(compiler, wpConfig.devServer);
   devServer.listen(DEVPORT, () => {
