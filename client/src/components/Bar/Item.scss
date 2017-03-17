@@ -11,6 +11,7 @@
 .link {
   @include h3;
   text-decoration: none;
+  text-align: center;
 
   &:hover {
     color: $color-text;

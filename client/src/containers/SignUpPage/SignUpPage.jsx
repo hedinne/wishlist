@@ -76,7 +76,7 @@ export default class SignUpPage extends Component {
       <div className={s.host}>
 
         <Bar>
-          <Item />
+          <Item logo />
         </Bar>
 
         <SignUpForm

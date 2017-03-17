@@ -8,6 +8,7 @@ export default class Item extends Component {
     const {
       to,
       children,
+      logo,
     } = this.props;
 
     if (to) {
@@ -17,9 +18,16 @@ export default class Item extends Component {
         </div>
       );
     }
+    if (logo) {
+      return (
+        <div className={s.host}>
+          <Link to="/" className={s.logo}>Wishlist</Link>
+        </div>
+      );
+    }
     return (
       <div className={s.host}>
-        <Link to="/" className={s.logo}>Wishlist</Link>
+        <div className={s.link}>{children}</div>
       </div>
     );
   }
@@ -28,4 +36,5 @@ export default class Item extends Component {
 Item.propTypes = {
   to: PropTypes.string,
   children: PropTypes.node,
+  logo: PropTypes.bool,
 };

@@ -1,6 +1,8 @@
-.leyndo {
+@import '../../styles/Config.scss';
+@import '../../styles/Mixins.scss';
+
+.host {
+  @include container();
   display: flex;
-  font-size: 30px;
-  color: #abc000;
-  font-style: italic;
+  flex-flow: wrap;
 }

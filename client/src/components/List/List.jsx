@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import s from './List.scss';
 
 const List = ({
   list,
@@ -6,13 +7,21 @@ const List = ({
   onRemoveItem,
   onRemoveList,
 }) => (
-  <div>
+  <div className={s.host}>
     <h4>
       {list.title}
       <span>
         <button onClick={onRemoveList} name={list._id}> X</button>
       </span>
     </h4>
+
+    <hr />
+
+    <form action="/" onSubmit={onCreateItem} id={list._id} name="form" >
+      <p>Item</p>
+      <input type="text" name="newItem" />
+      <input type="submit" value="Create" />
+    </form>
 
     <ul>
       {list.listItems &&
@@ -25,11 +34,6 @@ const List = ({
       }
     </ul>
 
-    <form action="/" onSubmit={onCreateItem} id={list._id} name="form" >
-      <p>Item</p>
-      <input type="text" name="newItem" />
-      <input type="submit" value="Create" />
-    </form>
   </div>
 );
 

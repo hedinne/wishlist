@@ -35,10 +35,6 @@
   padding: 0 $gutter-mobile;
   max-width: $page-width;
 
-  // @include viewport(340px) {
-  //   max-width: $page-width + $container-gutter-mobile * 2;
-  // }
-
   @include viewport(tablet) {
     padding: 0 $gutter-desktop;
     max-width: $page-width + $gutter-desktop;
@@ -54,10 +50,17 @@
 @mixin h1 {
   font-family: $family-fancy;
   font-weight: 700;
-  font-size: 60px;
+  font-size: 35px;
   color: $color-heading;
   text-align: center;
   text-transform: uppercase;
+
+  @include viewport(tablet) {
+    font-size: 45px;
+  }
+  @include viewport(desktop) {
+    font-size: 60px;
+  }
 }
 
 @mixin h2 {

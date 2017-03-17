@@ -83,7 +83,7 @@ export default class LoginPage extends Component {
       <div className={s.host}>
 
         <Bar>
-          <Item />
+          <Item logo />
         </Bar>
 
         <LoginForm

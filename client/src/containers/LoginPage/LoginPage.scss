@@ -2,6 +2,7 @@
 @import '../../styles/Mixins.scss';
 
 .host {
+  @include container();
   display: flex;
   flex-direction: column;
   justify-content: center;
