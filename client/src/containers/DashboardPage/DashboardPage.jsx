@@ -23,11 +23,20 @@ export default class DashboardPage extends Component {
 
     this.state = {
       allLists: [],
+      newItem: {
+        title: '',
+        description: '',
+        link: '',
+        price: '',
+        owner: '',
+      },
     };
+
     this.onCreateList = this.onCreateList.bind(this);
     this.onCreateItem = this.onCreateItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.onRemoveList = this.onRemoveList.bind(this);
+    this.onChangeNewItem = this.onChangeNewItem.bind(this);
   }
 
   componentDidMount() {
@@ -54,14 +63,10 @@ export default class DashboardPage extends Component {
   onCreateItem(e) {
     e.preventDefault();
 
-    const title = e.target.newItem.value;
-    if (!title) { return; }
+    if (!this.state.newItem.title) { return; }
 
     try {
-      fetch('/api/create/item', postInit({
-        title,
-        owner: e.target.id,
-      }))
+      fetch('/api/create/item', postInit(this.state.newItem))
         .then(res => res.json())
         .then(res => res.data)
         .then((res) => {
@@ -69,7 +74,7 @@ export default class DashboardPage extends Component {
             this.setState({ allLists: res });
           }
         });
-      e.target.newItem.value = '';
+      e.target.newItem = {};
 
     } catch (err) {
       console.error('onCreateItem', err);
@@ -163,6 +168,16 @@ export default class DashboardPage extends Component {
       });
   }
 
+  onChangeNewItem(e) {
+    e.preventDefault();
+
+    const target = e.target;
+    const newItem = this.state.newItem;
+    newItem[target.name] = target.value;
+    newItem.owner = target.id.split('_')[0];
+
+    this.setState({ newItem });
+  }
 
   render() {
     return (
@@ -184,6 +199,7 @@ export default class DashboardPage extends Component {
           onCreateItem={this.onCreateItem}
           onRemoveItem={this.onRemoveItem}
           onRemoveList={this.onRemoveList}
+          onChangeNewItem={this.onChangeNewItem}
         />
       </div>
     );

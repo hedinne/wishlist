@@ -21,7 +21,7 @@ function returnAllLists(userId, res) {
       },
     })
     .exec((userErr, doc) => {
-      if (userErr) console.log('User.populate 💩', userErr);
+      if (userErr) console.error('User.populate 💩', userErr);
 
       return res.status(200).json({
         success: true,
@@ -77,7 +77,7 @@ router.post('/create/list', (req, res) => {
       lists: newList._id,
     },
   }, (err) => {
-    if (err) console.log('User.update 💩', err);
+    if (err) console.error('User.update 💩', err);
 
     returnAllLists(userId, res);
   });
@@ -104,10 +104,10 @@ router.post('/create/item', (req, res) => {
 
   const newItem = new ListItem({
     title: payload.title,
-    // description: payload.description,
-    // link: payload.link,
-    // price: payload.price,
-    // marked: payload.marked,
+    description: payload.description,
+    link: payload.link,
+    price: payload.price,
+    marked: payload.marked,
     owner: payload.owner,
   });
   newItem.save();
@@ -117,7 +117,7 @@ router.post('/create/item', (req, res) => {
       listItems: newItem._id,
     },
   }, (err) => {
-    if (err) console.log('User.update 💩', err);
+    if (err) console.error('User.update 💩', err);
 
     returnAllLists(userId, res);
   });
@@ -145,7 +145,7 @@ router.post('/remove/item', (req, res) => {
 
   ListItem
     .findByIdAndRemove(payload.item, {}, (err, doc) => {
-      if (err) console.log('Item Remove 💩', err);
+      if (err) console.error('Item Remove 💩', err);
 
       List
         .findByIdAndUpdate(doc.owner, {
@@ -153,7 +153,7 @@ router.post('/remove/item', (req, res) => {
             listItems: payload.item,
           },
         }, (listErr) => {
-          if (listErr) { console.log(listErr); }
+          if (listErr) { console.error(listErr); }
         });
       returnAllLists(userId, res);
     });
@@ -181,7 +181,7 @@ router.post('/remove/list', (req, res) => {
 
   List
     .findByIdAndRemove(payload.item, {}, (err, doc) => {
-      if (err) console.log('Item Remove 💩', err);
+      if (err) console.error('Item Remove 💩', err);
 
       User
         .findByIdAndUpdate(doc.owner, {
@@ -189,7 +189,7 @@ router.post('/remove/list', (req, res) => {
             lists: payload.item,
           },
         }, (listErr) => {
-          if (listErr) { console.log(listErr); }
+          if (listErr) { console.error(listErr); }
         });
       returnAllLists(userId, res);
     });

@@ -9,7 +9,7 @@ const SignUpForm = ({
   user,
 }) => (
   <form action="/" onSubmit={onSubmit} className={s.host}>
-    <h2 className={s.heading}>Sign In</h2>
+    <h2 className={s.heading}>Register</h2>
 
     {errors.summary && <p className="error-message">{errors.summary}</p>}
 

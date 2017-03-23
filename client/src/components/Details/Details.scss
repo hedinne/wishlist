@@ -2,11 +2,5 @@
 @import '../../styles/Mixins.scss';
 
 .host {
-  @include container();
-  display: flex;
-  flex-flow: wrap;
-}
-
-.listWrapper {
   flex: 1;
 }

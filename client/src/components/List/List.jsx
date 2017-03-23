@@ -1,47 +1,84 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import Details from '../Details/Details.jsx';
 import s from './List.scss';
 
-const List = ({
-  list,
-  onCreateItem,
-  onRemoveItem,
-  onRemoveList,
-}) => (
-  <div className={s.host}>
-    <h4>
-      {list.title}
-      <span>
-        <button onClick={onRemoveList} name={list._id}> X</button>
-      </span>
-    </h4>
 
-    <hr />
+export default class List extends Component {
 
-    <form action="/" onSubmit={onCreateItem} id={list._id} name="form" >
-      <p>Item</p>
-      <input type="text" name="newItem" />
-      <input type="submit" value="Create" />
-    </form>
+  render() {
 
-    <ul>
-      {list.listItems &&
-        list.listItems.map(item => (
-          <li key={item._id}>
-            <span><button onClick={onRemoveItem} name={`${item._id}_${list._id}`}>X </button> </span>
-            {item.title}
-          </li>
-        ))
-      }
-    </ul>
+    const {
+      list,
+      onCreateItem,
+      onRemoveItem,
+      onRemoveList,
+      itemSelected,
+      listClosed,
+      openItem,
+      onChangeNewItem,
+    } = this.props;
 
-  </div>
-);
+    const hostClasses = s('host', { isOpen: openItem.owner === list._id });
+
+    return (
+      <div className={hostClasses}>
+        <div className={s.headingContainer}>
+          <h4 className={s.title}>
+            {list.title}
+            <span className={s.button}>
+              <button onClick={onRemoveList} name={list._id}> X</button>
+            </span>
+          </h4>
+          <div className={s.buttonContainer} >
+            <button>+</button>
+            <button onClick={listClosed}>X</button>
+          </div>
+        </div>
+        <hr className={s.line} />
+
+
+        <div className={s.container}>
+          <ul className={s.ul}>
+            {list.listItems &&
+              list.listItems.map(item => (
+                <li key={item._id} className={s.li}>
+                  <button
+                    onClick={itemSelected.bind(this, item)} // eslint-disable-line
+                  >
+                    {item.title}
+                  </button>
+                  <span className={s.button}>
+                    <button onClick={onRemoveItem} name={`${item._id}_${list._id}`}>
+                      X
+                    </button>
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          {openItem.owner === list._id && (
+            <Details
+              onChangeNewItem={onChangeNewItem}
+              onCreateItem={onCreateItem}
+              listID={list._id}
+            />
+          )}
+
+        </div>
+      </div>
+    );
+  }
+}
+
 
 List.propTypes = {
   list: PropTypes.any,
   onCreateItem: PropTypes.func,
   onRemoveItem: PropTypes.func,
   onRemoveList: PropTypes.func,
+  itemSelected: PropTypes.func,
+  listClosed: PropTypes.func,
+  onChangeNewItem: PropTypes.func,
+  openItem: PropTypes.any,
 };
-
-export default List;

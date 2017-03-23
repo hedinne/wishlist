@@ -2,9 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import s from './Bar.scss';
 
 export default class Bar extends Component {
-  constructor(props){
-    super(props);
-  }
 
   render() {
 
