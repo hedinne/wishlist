@@ -180,6 +180,7 @@ export default class DashboardPage extends Component {
   }
 
   render() {
+    console.log(this);
     return (
       <div>
         <Bar>

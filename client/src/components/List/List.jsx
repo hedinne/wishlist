@@ -5,6 +5,22 @@ import s from './List.scss';
 
 export default class List extends Component {
 
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      createNew: false,
+    };
+
+    this.createNewItem = this.createNewItem.bind(this);
+  }
+
+  createNewItem() {
+    if (!this.state.createNew) {
+      this.setState({ createNew: true });
+    }
+  }
+
   render() {
 
     const {
@@ -19,6 +35,8 @@ export default class List extends Component {
     } = this.props;
 
     const hostClasses = s('host', { isOpen: openItem.owner === list._id });
+    const url = (window !== 'undefined') && `${window.location.href}list/${list._id}`;
+
 
     return (
       <div className={hostClasses}>
@@ -30,11 +48,12 @@ export default class List extends Component {
             </span>
           </h4>
           <div className={s.buttonContainer} >
-            <button>+</button>
+            <button onClick={this.createNewItem}>+</button>
             <button onClick={listClosed}>X</button>
           </div>
         </div>
         <hr className={s.line} />
+        <input type="text" readOnly value={url} />
 
 
         <div className={s.container}>
@@ -42,9 +61,7 @@ export default class List extends Component {
             {list.listItems &&
               list.listItems.map(item => (
                 <li key={item._id} className={s.li}>
-                  <button
-                    onClick={itemSelected.bind(this, item)} // eslint-disable-line
-                  >
+                  <button onClick={itemSelected.bind(this, item)} className={s.item}>
                     {item.title}
                   </button>
                   <span className={s.button}>
@@ -57,7 +74,12 @@ export default class List extends Component {
             }
           </ul>
 
-          {openItem.owner === list._id && (
+          {(openItem.owner === list._id && !this.state.createNew) && (
+            <Details
+              openItem={openItem}
+            />
+          )}
+          {this.state.createNew && (
             <Details
               onChangeNewItem={onChangeNewItem}
               onCreateItem={onCreateItem}

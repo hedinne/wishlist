@@ -4,3 +4,16 @@
 .host {
   flex: 1;
 }
+
+.input {
+  width: 100%;
+
+  font-family: $family-work;
+  font-size: 18px;
+  line-height: 2.5;
+  color: $color-text;
+
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid $color-alto;
+}

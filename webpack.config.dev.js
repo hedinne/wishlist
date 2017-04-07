@@ -15,6 +15,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, '/build'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
 
@@ -78,6 +79,7 @@ module.exports = {
       '/api': `http://localhost:${PORT}`,
       '/auth': `http://localhost:${PORT}`,
       '/auth/login': `http://localhost:${PORT}`,
+      '/openlist': `http://localhost:${PORT}`,
     },
   },
 };

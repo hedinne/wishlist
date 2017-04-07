@@ -3,6 +3,7 @@ module.exports = {
   "rules": {
     "padded-blocks": 0,
     "consistent-return": 0,
+    "no-extra-boolean-cast": 0,
     "no-underscore-dangle": 0,
     "no-param-reassign": 0,
     "react/forbid-prop-types": 0,
