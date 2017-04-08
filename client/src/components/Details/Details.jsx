@@ -6,45 +6,52 @@ const Details = ({
   onCreateItem,
   listID,
   openItem,
+  onRemoveItem,
 }) => (
   <div className={s.host}>
-    <form onChange={onChangeNewItem} onSubmit={onCreateItem}>
-      <label htmlFor>
+    <form onChange={onChangeNewItem} onSubmit={onCreateItem} className={s.form}>
+      <label htmlFor className={s.label}>
         Title
         {openItem
           ? <input className={s.input} type="text" name="title" id={`${listID}_title`} value={openItem.title} readOnly />
           : <input className={s.input} type="text" name="title" id={`${listID}_title`} />
         }
       </label>
-      <br />
-      <label htmlFor>
-        Description
-        {openItem
-          ? <input className={s.input} type="text" name="description" id={`${listID}_description`} value={openItem.description} readOnly />
-          : <input className={s.input} type="text" name="description" id={`${listID}_description`} />
-        }
-      </label>
-      <br />
 
-      <label htmlFor>
+      <label htmlFor className={s.label}>
         Link
         {openItem
-          ? <input className={s.input} type="text" name="link" id={`${listID}_link`} value={openItem.link} readOnly />
-          : <input className={s.input} type="text" name="link" id={`${listID}_link`} />
+          ?
+            <a href={openItem.link} target="_blank" rel="noopener noreferrer">
+              <input className={s('link', 'input')} type="text" name="link" id={`${listID}_link`} value={openItem.link} readOnly />
+            </a>
+          : <input className={s.input} type="url" name="link" id={`${listID}_link`} />
         }
       </label>
-      <br />
 
-      <label htmlFor>
+      <label htmlFor className={s.label}>
         Price
         {openItem
           ? <input className={s.input} type="text" name="price" id={`${listID}_price`} value={openItem.price} readOnly />
           : <input className={s.input} type="text" name="price" id={`${listID}_price`} />
         }
       </label>
-      <br />
-      {!openItem && <input type="submit" value="Create" />}
+
+      <label htmlFor className={s.label}>
+        Description
+        {openItem
+          ? <textarea className={s.input} type="text" name="description" id={`${listID}_description`} value={openItem.description} readOnly rows="3" />
+          : <textarea className={s.input} type="text" name="description" id={`${listID}_description`} rows="3" />
+        }
+      </label>
+
+      {!openItem && <input type="submit" value="Create" className={s.submit} />}
     </form>
+    {openItem &&
+      <button onClick={onRemoveItem} className={s('submit', 'delete')} id={`${openItem._id}_${openItem.owner}`}>
+        Delete Item
+      </button>
+    }
   </div>
 );
 
@@ -53,6 +60,7 @@ Details.propTypes = {
   onCreateItem: PropTypes.func,
   listID: PropTypes.string,
   openItem: PropTypes.any,
+  onRemoveItem: PropTypes.func,
 };
 
 export default Details;

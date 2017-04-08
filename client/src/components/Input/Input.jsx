@@ -10,9 +10,6 @@ function type(name) {
   }
 }
 
-// TODO: Change component to a contrilled component.
-// https://facebook.github.io/react/docs/forms.html#controlled-components
-
 export default class Input extends Component {
   constructor(...args) {
     super(...args);

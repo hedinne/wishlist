@@ -9,25 +9,26 @@ export default class Item extends Component {
       to,
       children,
       logo,
+      className,
     } = this.props;
 
     if (to) {
       return (
-        <div className={s.host}>
-          <Link to={to} className={s.link}>{children}</Link>
+        <div className={s('host', className)}>
+          <Link to={to}>{children}</Link>
         </div>
       );
     }
     if (logo) {
       return (
-        <div className={s.host}>
+        <div className={s('host', className)}>
           <Link to="/" className={s.logo}>Wishlist</Link>
         </div>
       );
     }
     return (
-      <div className={s.host}>
-        <div className={s.link}>{children}</div>
+      <div className={s('host', className)}>
+        <div>{children}</div>
       </div>
     );
   }
@@ -37,4 +38,5 @@ Item.propTypes = {
   to: PropTypes.string,
   children: PropTypes.node,
   logo: PropTypes.bool,
+  className: PropTypes.any,
 };

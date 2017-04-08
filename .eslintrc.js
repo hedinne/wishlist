@@ -6,6 +6,7 @@ module.exports = {
     "no-extra-boolean-cast": 0,
     "no-underscore-dangle": 0,
     "no-param-reassign": 0,
+    "react/jsx-no-bind": 0,
     "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
     "react/prefer-stateless-function": 0,

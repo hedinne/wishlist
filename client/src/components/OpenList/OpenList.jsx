@@ -14,11 +14,11 @@ export default class OpenList extends Component {
 
   openItem(e) {
     e.preventDefault();
-    const openID = this.target.id;
-    if (this.state.openID === openID) {
+    const id = e.target.id;
+    if (this.state.openID === id) {
       this.setState({ openID: '' });
     } else {
-      this.setState({ openID });
+      this.setState({ openID: id });
     }
   }
 
@@ -44,7 +44,7 @@ export default class OpenList extends Component {
             </ul>
 
           </div>
-          {this.state.open && (
+          {this.state.openID && (
             <Details openItem={listItems.filter(i => i._id === this.state.open)[0]} />
           )}
         </div>

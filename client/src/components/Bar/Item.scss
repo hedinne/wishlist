@@ -8,16 +8,6 @@
   align-items: center;
 }
 
-.link {
-  @include h3;
-  text-decoration: none;
-  text-align: center;
-
-  &:hover {
-    color: $color-text;
-    border-bottom: 1px solid $color-text;
-  }
-}
 
 .logo {
   @include h1;

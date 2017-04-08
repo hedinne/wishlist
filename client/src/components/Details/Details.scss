@@ -3,17 +3,68 @@
 
 .host {
   flex: 1;
+  margin: 15px 15px 30px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-family: $family-work;
+  font-weight: 300;
+  color: $color-text;
 }
 
 .input {
+  opacity: 0.7;
+
+  margin-bottom: $gutter;
   width: 100%;
 
   font-family: $family-work;
   font-size: 18px;
+  font-weight: 300;
   line-height: 2.5;
   color: $color-text;
 
   background-color: transparent;
   border: 0;
   border-bottom: 1px solid $color-alto;
+}
+.link {
+  transition: opacity 125ms ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.submit {
+  @include h4;
+
+  align-self: flex-end;
+
+  opacity: 0.7;
+
+  padding: 0 10px;
+
+  color: $color-alto;
+
+  background-color: transparent;
+
+  border: 0;
+
+  box-shadow: 0 1px 0 $color-alto;
+
+  transition: opacity 125ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.delete {
+  font-size: 20px;
 }

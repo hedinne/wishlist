@@ -13,10 +13,26 @@ export default class Dashboard extends Component {
 
     this.itemSelected = this.itemSelected.bind(this);
     this.listClosed = this.listClosed.bind(this);
+    this.onClickAddNew = this.onClickAddNew.bind(this);
+  }
+
+  onClickAddNew(ownerID) {
+    this.setState({
+      openItem: {
+        _id: 'new',
+        owner: ownerID,
+      },
+    });
   }
 
   itemSelected(openItem) {
-    this.setState({ openItem });
+    console.log(openItem);
+    this.setState({ openItem: {} });
+    if (openItem === this.state.openItem) {
+      this.setState({ openItem: {} });
+    } else {
+      this.setState({ openItem });
+    }
   }
 
   listClosed() {
@@ -40,7 +56,7 @@ export default class Dashboard extends Component {
     return (
       <div className={s.host}>
 
-        {typeof this.state.openItem._id !== 'undefined' ? (
+        {!!this.state.openItem._id && openList ? (
           <List
             key={openList._id}
             list={openList}
@@ -51,6 +67,7 @@ export default class Dashboard extends Component {
             listClosed={this.listClosed}
             openItem={this.state.openItem}
             onChangeNewItem={onChangeNewItem}
+            onClickAddNew={this.onClickAddNew}
           />
         ) : (
           allLists && allLists.map(item =>
@@ -65,6 +82,7 @@ export default class Dashboard extends Component {
               openItem={(typeof this.state.openItem._id !== 'undefined'
                 && this.state.openItem.owner === item._id) && this.state.openItem}
               onChangeNewItem={onChangeNewItem}
+              onClickAddNew={this.onClickAddNew}
             />,
           )
         )}

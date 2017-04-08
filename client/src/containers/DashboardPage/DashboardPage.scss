@@ -1,0 +1,67 @@
+@import '../../styles/Config.scss';
+@import '../../styles/Mixins.scss';
+
+.headerItem {
+  @include h4;
+
+  opacity: 0.7;
+
+  color: $color-alto;
+  text-decoration: none;
+
+  transition: opacity 125ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & > a { /* stylelint-disable-line */
+    color: $color-alto;
+    text-decoration: none;
+  }
+}
+
+.newListButton {
+  @include h4;
+
+  opacity: 0.7;
+
+  color: $color-alto;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  border: 0;
+
+  transition:
+    opacity 125ms ease-in-out,
+    padding 125ms ease-in-out,
+    font-size 125ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &--open {
+    padding: 8px 0;
+    font-size: 16px;
+  }
+}
+.form {
+  display: flex;
+  border-bottom: 1px solid $color-alto;
+}
+
+.input {
+  @include h4;
+
+  color: $color-alto;
+
+  background-color: transparent;
+  border: 0;
+}
+
+.inputButton {
+  background-color: transparent;
+  border: 0;
+}

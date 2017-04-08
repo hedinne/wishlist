@@ -4,18 +4,12 @@
 .host {
   flex: 1;
 
-  opacity: 0.8;
-
   margin: $gutter / 2;
 
   min-width: 320px;
   width: 100%;
 
   transition: opacity 125ms ease-in-out;
-
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .headingContainer {
@@ -33,6 +27,26 @@
   margin: $gutter 0 0 0;
 }
 
+.buttonContainer {
+  margin: -8px;
+}
+
+.iconButton {
+  opacity: 0.55;
+
+  margin: 0 8px;
+
+  border: 0;
+
+  background-color: transparent;
+
+  transition: 125ms opacity ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 
 .line {
   height: 1px;
@@ -40,10 +54,31 @@
   color: $color-alto;
 }
 
+.clipboardContainer {
+  display: flex;
+  margin: 15px -8px;
+}
+
+.clipboardInput {
+  flex: 1;
+
+  padding: 10px 15px;
+  margin: 0 8px;
+
+  font-size: 13px;
+  font-style: $family-work;
+  color: $color-text;
+
+  border: 0;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.55);
+
+  background-color: transparent;
+}
+
 
 .ul {
   flex: 1;
-  margin: $gutter $gutter / 2 $gutter 0;
+  margin: $gutter / 2  $gutter / 2 $gutter 0;
   padding: 0 0 0 15px;
 
   list-style: none;
@@ -66,17 +101,19 @@
 }
 
 .item {
+  margin-bottom: 1em;
   font-family: $family-work;
+  font-weight: 300;
   font-size: 18px;
-  line-height: 2.5;
   color: $color-text;
 
   background-color: transparent;
   border: 0;
 
+  transition: box-shadow 125ms ease-in-out;
+
   &:hover {
-    text-decoration: underline;
-    // text-decoration-style: wavy;
+    box-shadow: 0 1px 0 $color-alto;
   }
 }
 
