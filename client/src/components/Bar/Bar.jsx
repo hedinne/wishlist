@@ -8,10 +8,11 @@ export default class Bar extends Component {
     const {
       children,
       bottom,
+      className,
     } = this.props;
 
     return (
-      <div className={s('host', { bottom })}>
+      <div className={s('host', className, { bottom })}>
         {children}
       </div>
     );
@@ -21,4 +22,5 @@ export default class Bar extends Component {
 Bar.propTypes = {
   children: PropTypes.node,
   bottom: PropTypes.bool,
+  className: PropTypes.any,
 };

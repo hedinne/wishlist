@@ -100,7 +100,14 @@
 @mixin h4 {
   font-family: $family-fancy;
   font-weight: 100;
-  font-size: 30px;
+  font-size: 20px;
   text-align: left;
   text-transform: capitalize;
+
+  @include viewport(tablet) {
+    font-size: 26px;
+  }
+  @include viewport(desktop) {
+    font-size: 30px;
+  }
 }

@@ -1,6 +1,8 @@
 /* eslint no-undef: "off", max-len: "off" */
 import React, { PropTypes, Component } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import MediaQuery from 'react-responsive';
+
 import Details from '../Details/Details.jsx';
 import s from './List.scss';
 
@@ -80,7 +82,7 @@ export default class List extends Component {
               </svg>
             </button>
             <button onClick={this.createNewItem} title="Add Item" className={s.iconButton}>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" className={s.svg} width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="#ddd"
                   d="M12 2q0.414 0 0.707 0.293t0.293 0.707v8h8q0.414 0 0.707 0.293t0.293 0.707-0.293 0.707-0.707 0.293h-8v8q0 0.414-0.293 0.707t-0.707 0.293-0.707-0.293-0.293-0.707v-8h-8q-0.414 0-0.707-0.293t-0.293-0.707 0.293-0.707 0.707-0.293h8v-8q0-0.414 0.293-0.707t0.707-0.293z"
@@ -131,30 +133,52 @@ export default class List extends Component {
 
         <div className={s.container}>
           <ul className={s.ul}>
+            <MediaQuery query="(max-width: 768px)">
+              {openItem && this.state.createNew && (
+                <Details
+                  onChangeNewItem={onChangeNewItem}
+                  onCreateItem={onCreateItem}
+                  listID={list._id}
+                />
+              )}
+            </MediaQuery>
             {list.listItems &&
               list.listItems.map(item => (
                 <li key={item._id} className={s.li}>
                   <button onClick={itemSelected.bind(this, item)} className={s.item}>
                     {item.title}
                   </button>
+                  <MediaQuery query="(max-width: 768px)">
+                    {(openItem.owner === list._id && !this.state.createNew && item._id === openItem._id) && (
+                      <Details
+                        openItem={openItem}
+                        onRemoveItem={onRemoveItem}
+                      />
+                    )}
+                  </MediaQuery>
                 </li>
               ))
             }
           </ul>
 
-          {(openItem.owner === list._id && !this.state.createNew) && (
-            <Details
-              openItem={openItem}
-              onRemoveItem={onRemoveItem}
-            />
-          )}
-          {openItem && this.state.createNew && (
-            <Details
-              onChangeNewItem={onChangeNewItem}
-              onCreateItem={onCreateItem}
-              listID={list._id}
-            />
-          )}
+          <MediaQuery query="(min-width: 768px)">
+            <div className={s.side}>
+              {(openItem.owner === list._id && !this.state.createNew) && (
+                <Details
+                  openItem={openItem}
+                  onRemoveItem={onRemoveItem}
+                />
+              )}
+
+              {openItem && this.state.createNew && (
+                <Details
+                  onChangeNewItem={onChangeNewItem}
+                  onCreateItem={onCreateItem}
+                  listID={list._id}
+                />
+              )}
+            </div>
+          </MediaQuery>
 
         </div>
       </div>

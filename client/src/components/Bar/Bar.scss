@@ -12,10 +12,10 @@
   left: 0;
   right: 0;
 
-  height: 1.5 * $gutter-desktop;
+  min-height: 2 * $gutter-desktop;
   width: 100%;
 
   @include viewport(desktop) {
-    height: 2 * $gutter-desktop;
+    min-height: 2 * $gutter-desktop;
   }
 }

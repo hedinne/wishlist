@@ -111,16 +111,10 @@ export default class DashboardPage extends Component {
   onRemoveItem(e) {
     e.preventDefault();
 
-    console.log(e.currentTarget.id);
-
-    console.log('itemID', e.currentTarget.id.split('_')[0]);
-    console.log('listID', e.currentTarget.id.split('_')[1]);
-
     const itemID = e.currentTarget.id.split('_')[0];
     const listID = e.currentTarget.id.split('_')[1];
 
     const newList = this.state.allLists;
-    console.log(newList);
     newList
       .find(i => i._id === listID)
       .listItems
@@ -198,11 +192,11 @@ export default class DashboardPage extends Component {
 
   render() {
     return (
-      <div>
-        <Bar>
+      <div className={s.host}>
+        <Bar className={s.bar}>
           <Item to="/logout" className={s.headerItem}>Log Out</Item>
-          <Item logo />
-          <Item>
+          <Item logo className={s.logo} />
+          <Item className={s.headerItem}>
             <button
               className={s('newListButton', { 'newListButton--open': this.state.showNewList })}
               onClick={this.onClickShowNewList}

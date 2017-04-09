@@ -21,7 +21,7 @@ export default class Item extends Component {
     }
     if (logo) {
       return (
-        <div className={s('host', className)}>
+        <div className={s('host', 'logo', className)}>
           <Link to="/" className={s.logo}>Wishlist</Link>
         </div>
       );

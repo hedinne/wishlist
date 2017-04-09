@@ -1,6 +1,18 @@
 @import '../../styles/Config.scss';
 @import '../../styles/Mixins.scss';
 
+.host {
+  //
+}
+
+.bar {
+  flex-direction: column;
+
+  @include viewport(tablet) {
+    flex-direction: row;
+  }
+}
+
 .headerItem {
   @include h4;
 
