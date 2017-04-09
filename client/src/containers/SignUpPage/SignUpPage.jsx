@@ -86,9 +86,11 @@ export default class SignUpPage extends Component {
           user={this.state.user}
         />
 
-        <Bar bottom>
-          <Item to="/login">Already have an account?</Item>
-        </Bar>
+        <div className={s.bottom}>
+          <Item to="/login" className={s.item}>
+            Already have an account?
+          </Item>
+        </div>
 
         {this.state.push && <Redirect push to="/login" />}
       </div>

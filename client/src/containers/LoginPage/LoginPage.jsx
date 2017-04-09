@@ -94,9 +94,11 @@ export default class LoginPage extends Component {
           user={this.state.user}
         />
 
-        <Bar bottom>
-          <Item to="/register">Don&apos;t have an account?</Item>
-        </Bar>
+        <div className={s.bottom}>
+          <Item to="/register" className={s.item}>
+            Don&apos;t have an account?
+          </Item>
+        </div>
         {this.state.push && <Redirect push to="/" />}
       </div>
     );

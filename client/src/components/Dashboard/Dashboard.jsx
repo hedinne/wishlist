@@ -26,7 +26,6 @@ export default class Dashboard extends Component {
   }
 
   itemSelected(openItem) {
-    console.log(openItem);
     this.setState({ openItem: {} });
     if (openItem === this.state.openItem) {
       this.setState({ openItem: {} });

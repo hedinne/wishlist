@@ -1,5 +1,4 @@
-/* eslint no-undef: "off" */
-/* eslint max-len: "off" */
+/* eslint no-undef: "off", max-len: "off" */
 import React, { PropTypes, Component } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Details from '../Details/Details.jsx';

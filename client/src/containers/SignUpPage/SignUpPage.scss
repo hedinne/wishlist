@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
 
-  height: 100%;
+  min-height: 100%;
 }
 
 .link {
@@ -19,4 +19,28 @@
 .logo {
   @include h1;
   text-decoration: none;
+}
+
+.item {
+  flex: 1;
+
+  & > a { /* stylelint-disable-line */
+    @include h3;
+    opacity: 0.7;
+
+    text-decoration: none;
+    text-align: center;
+
+    transition:
+      opacity 125ms ease-in-out,
+      box-shadow 125ms ease-in-out;
+    &:hover {
+      opacity: 1;
+      box-shadow: $shadow;
+    }
+  }
+}
+
+.bottom {
+  height: 2 * $gutter;
 }

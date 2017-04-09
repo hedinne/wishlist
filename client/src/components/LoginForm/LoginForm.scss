@@ -2,18 +2,18 @@
 @import '../../styles/Mixins.scss';
 
 .host {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
-
+  margin: auto;
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
+}
+
+.errorMessage {
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .container {
-  height: 140px;
+  height: 90px;
 }
 
 .error {
@@ -23,28 +23,26 @@
 }
 
 .button {
-  @include h3;
+  @include h4;
+
+  display: block;
+  margin: 0 auto;
 
   width: 100%;
-  max-width: 60%;
 
-  color: transparentize($color-text, 0.5);
+  text-align: center;
+
+  color: transparentize($color-text, 0.2);
 
   background-color: transparent;
   border: 0;
-  outline: none;
 
   transition:
     color 125ms ease-in-out,
-    border-bottom 125ms ease-in-out;
+    box-shadow 125ms ease-in-out;
 
   &:hover {
     color: $color-text;
-    border-bottom: 1px solid $color-text;
-  }
-
-  &:focus {
-    color: $color-text;
-    border-bottom: 1px solid $color-text;
+    box-shadow: 0 1px 0 0 $color-text;
   }
 }

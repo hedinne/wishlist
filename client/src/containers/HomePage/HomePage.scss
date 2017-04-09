@@ -4,12 +4,14 @@
 
 .host {
   @include container();
+}
+
+.hero {
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  height: 100%;
-
+  height: 100vh;
 }
 
 .title {
@@ -26,9 +28,74 @@
   text-transform: uppercase;
 
   @include viewport(tablet) {
-    font-size: 120px;
+    font-size: 12vw;
   }
   @include viewport(desktop) {
     font-size: 212px;
+  }
+}
+
+.item {
+  flex: 1;
+
+  & > a { /* stylelint-disable-line */
+    @include h2;
+    opacity: 0.7;
+
+    text-decoration: none;
+
+    transition:
+      opacity 125ms ease-in-out,
+      box-shadow 125ms ease-in-out;
+    &:hover {
+      opacity: 1;
+      box-shadow: $shadow;
+    }
+  }
+}
+
+.bottom {
+  flex: 1;
+}
+
+.scrollLink {
+  @include h2;
+  opacity: 0.7;
+
+  text-decoration: none;
+
+  transition:
+    opacity 125ms ease-in-out,
+    box-shadow 125ms ease-in-out;
+  &:hover {
+    opacity: 1;
+    box-shadow: $shadow;
+  }
+}
+
+.what {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.heading {
+  margin: -15vh 0 5vh;
+}
+
+.text {
+  max-width: 900px;
+  font-family: $family-fancy;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 20px;
+
+  @include viewport(tablet) {
+    font-size: 26px;
+  }
+  @include viewport(desktop) {
+    font-size: 32px;
   }
 }
