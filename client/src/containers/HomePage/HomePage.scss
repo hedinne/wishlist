@@ -1,7 +1,6 @@
 @import '../../styles/Config.scss';
 @import '../../styles/Mixins.scss';
 
-
 .host {
   @include container();
 }
@@ -11,7 +10,10 @@
   flex-direction: column;
   justify-content: center;
 
-  height: 100vh;
+  height: 90vh;
+  @include viewport(tablet) {
+    height: 100vh;
+  }
 }
 
 .title {

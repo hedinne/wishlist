@@ -17,12 +17,14 @@ export default class Dashboard extends Component {
   }
 
   onClickAddNew(ownerID) {
-    this.setState({
-      openItem: {
-        _id: 'new',
-        owner: ownerID,
-      },
-    });
+    if (this.state.openItem._id !== 'new') {
+      this.setState({
+        openItem: {
+          _id: 'new',
+          owner: ownerID,
+        },
+      });
+    }
   }
 
   itemSelected(openItem) {
@@ -67,6 +69,7 @@ export default class Dashboard extends Component {
             openItem={this.state.openItem}
             onChangeNewItem={onChangeNewItem}
             onClickAddNew={this.onClickAddNew}
+            isNew={this.state.openItem._id === 'new'}
           />
         ) : (
           allLists && allLists.map(item =>
@@ -82,6 +85,7 @@ export default class Dashboard extends Component {
                 && this.state.openItem.owner === item._id) && this.state.openItem}
               onChangeNewItem={onChangeNewItem}
               onClickAddNew={this.onClickAddNew}
+              isNew={this.state.openItem._id === 'new'}
             />,
           )
         )}

@@ -32,9 +32,6 @@ export default class List extends Component {
   }
 
   createNewItem() {
-    if (!this.state.createNew) {
-      this.setState({ createNew: true });
-    }
     this.props.onClickAddNew(this.props.list._id);
   }
 
@@ -54,6 +51,7 @@ export default class List extends Component {
       listClosed,
       openItem,
       onChangeNewItem,
+      isNew,
     } = this.props;
 
     const open = openItem.owner === list._id;
@@ -134,7 +132,7 @@ export default class List extends Component {
         <div className={s.container}>
           <ul className={s.ul}>
             <MediaQuery query="(max-width: 768px)">
-              {openItem && this.state.createNew && (
+              {openItem && isNew && (
                 <Details
                   onChangeNewItem={onChangeNewItem}
                   onCreateItem={onCreateItem}
@@ -149,7 +147,7 @@ export default class List extends Component {
                     {item.title}
                   </button>
                   <MediaQuery query="(max-width: 768px)">
-                    {(openItem.owner === list._id && !this.state.createNew && item._id === openItem._id) && (
+                    {(openItem.owner === list._id && !isNew && item._id === openItem._id) && (
                       <Details
                         openItem={openItem}
                         onRemoveItem={onRemoveItem}
@@ -161,16 +159,16 @@ export default class List extends Component {
             }
           </ul>
 
-          <MediaQuery query="(min-width: 768px)">
+          <MediaQuery query="(min-width: 768px)" className={s({ side: openItem })}>
             <div className={s.side}>
-              {(openItem.owner === list._id && !this.state.createNew) && (
+              {(openItem.owner === list._id && !isNew) && (
                 <Details
                   openItem={openItem}
                   onRemoveItem={onRemoveItem}
                 />
               )}
 
-              {openItem && this.state.createNew && (
+              {openItem && isNew && (
                 <Details
                   onChangeNewItem={onChangeNewItem}
                   onCreateItem={onCreateItem}
@@ -179,7 +177,6 @@ export default class List extends Component {
               )}
             </div>
           </MediaQuery>
-
         </div>
       </div>
     );
@@ -197,4 +194,5 @@ List.propTypes = {
   onChangeNewItem: PropTypes.func,
   openItem: PropTypes.any,
   onClickAddNew: PropTypes.func,
+  isNew: PropTypes.bool,
 };
