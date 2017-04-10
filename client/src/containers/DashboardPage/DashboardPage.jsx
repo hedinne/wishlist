@@ -201,11 +201,13 @@ export default class DashboardPage extends Component {
               className={s('newListButton', { 'newListButton--open': this.state.showNewList })}
               onClick={this.onClickShowNewList}
             >
-              New List
+              <label htmlFor="newName">
+                New List
+              </label>
             </button>
             {this.state.showNewList &&
               <form action="/" onSubmit={this.onCreateList} className={s.form} >
-                <input type="text" name="newName" className={s.input} />
+                <input type="text" name="newName" id="newName" className={s.input} />
                 <button type="submit" className={s.inputButton}>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path
