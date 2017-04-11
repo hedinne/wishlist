@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import MediaQuery from 'react-responsive';
+
 import s from './OpenList.scss';
 import Details from '../Details/Details.jsx';
-
 
 export default class OpenList extends Component {
 
@@ -39,14 +40,27 @@ export default class OpenList extends Component {
                   <button id={item._id} className={s.item} onClick={this.openItem}>
                     {item.title}
                   </button>
+                  <MediaQuery query="(max-width: 768px)">
+                    {this.state.openID === item._id && (
+                      <Details
+                        openItem={listItems.filter(i => i._id === this.state.openID)[0]}
+                        readOnly
+                      />
+                    )}
+                  </MediaQuery>
                 </li>
               ))}
             </ul>
 
           </div>
-          {this.state.openID && (
-            <Details openItem={listItems.filter(i => i._id === this.state.open)[0]} />
-          )}
+          <MediaQuery query="(min-width: 768px)" >
+            {this.state.openID && (
+              <Details
+                openItem={listItems.filter(i => i._id === this.state.openID)[0]}
+                readOnly
+              />
+            )}
+          </MediaQuery>
         </div>
       </div>
     );

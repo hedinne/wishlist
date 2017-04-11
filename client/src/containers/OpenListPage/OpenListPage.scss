@@ -1,0 +1,21 @@
+@import '../../styles/Config.scss';
+@import '../../styles/Mixins.scss';
+
+.item {
+  flex: 1;
+
+  & > a { /* stylelint-disable-line */
+    @include h3;
+    opacity: 0.7;
+
+    text-decoration: none;
+
+    transition:
+      opacity 125ms ease-in-out,
+      box-shadow 125ms ease-in-out;
+    &:hover {
+      opacity: 1;
+      box-shadow: $shadow;
+    }
+  }
+}

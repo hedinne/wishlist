@@ -32,7 +32,11 @@ export default class List extends Component {
   }
 
   createNewItem() {
-    this.props.onClickAddNew(this.props.list._id);
+    if (!this.props.isNew) {
+      this.props.onClickAddNew(this.props.list._id);
+    } else {
+      this.props.listClosed();
+    }
   }
 
   clipboardFocus(e) { // eslint-disable-line
@@ -61,7 +65,11 @@ export default class List extends Component {
     return (
       <div className={hostClasses}>
         <div className={s.headingContainer}>
-          <h4 className={s.title}>{list.title}</h4>
+          <button onClick={this.createNewItem} className={s('iconButton', 'titleButton')}>
+            <h4 className={s.title}>
+              {list.title}
+            </h4>
+          </button>
 
           <div className={s.buttonContainer} >
             {open &&

@@ -10,7 +10,11 @@
   transition: opacity 125ms ease-in-out;
   @media (min-width: 500px) {
     padding: $gutter / 2;
-    min-width: 360px;
+    min-width: 370px;
+  }
+  @include viewport(desktop) {
+    padding: $gutter;
+    min-width: 50%;
   }
 }
 
@@ -25,7 +29,9 @@
 }
 
 .title {
+  opacity: 1;
   margin: 15px 0 0;
+  color: $color-alto;
 
   @media (min-width: 500px) {
     margin: 30px 0 0;
@@ -58,6 +64,10 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.titleButton {
+  opacity: 1;
 }
 
 

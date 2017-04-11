@@ -7,6 +7,7 @@ const Details = ({
   listID,
   openItem,
   onRemoveItem,
+  readOnly,
 }) => (
   <div className={s.host}>
     <form onChange={onChangeNewItem} onSubmit={onCreateItem} className={s.form}>
@@ -22,9 +23,7 @@ const Details = ({
         Link
         {openItem
           ?
-            <a href={openItem.link} target="_blank" rel="noopener noreferrer">
-              <input className={s('link', 'input')} type="text" name="link" id={`${listID}_link`} value={openItem.link} readOnly />
-            </a>
+            <input className={s('link', 'input')} type="text" name="link" id={`${listID}_link`} value={openItem.link} readOnly />
           : <input className={s.input} type="url" name="link" id={`${listID}_link`} />
         }
       </label>
@@ -47,7 +46,7 @@ const Details = ({
 
       {!openItem && <input type="submit" value="Create" className={s.submit} />}
     </form>
-    {openItem &&
+    {openItem && !readOnly &&
       <button onClick={onRemoveItem} className={s('submit', 'delete')} id={`${openItem._id}_${openItem.owner}`}>
         Delete Item
       </button>
@@ -61,6 +60,7 @@ Details.propTypes = {
   listID: PropTypes.string,
   openItem: PropTypes.any,
   onRemoveItem: PropTypes.func,
+  readOnly: PropTypes.bool,
 };
 
 export default Details;

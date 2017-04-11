@@ -4,7 +4,7 @@ import qs from 'qs';
 import OpenList from '../../components/OpenList/OpenList.jsx';
 import Bar from '../../components/Bar/Bar.jsx';
 import Item from '../../components/Bar/Item.jsx';
-
+import s from './OpenListPage.scss';
 
 export default class OpenListPage extends Component {
 
@@ -35,9 +35,9 @@ export default class OpenListPage extends Component {
     return (
       <div>
         <Bar>
-          <Item to="/login">Sign In</Item>
+          <Item to="/login" className={s.item}>Sign In</Item>
           <Item logo />
-          <Item to="/register">Register</Item>
+          <Item to="/register" className={s.item}>Register</Item>
         </Bar>
 
         <OpenList list={this.state.list} />
