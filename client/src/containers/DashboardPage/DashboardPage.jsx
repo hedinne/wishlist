@@ -1,5 +1,4 @@
-/* eslint no-undef: "off" */
-/* eslint max-len: "off" */
+/* eslint no-undef: "off", max-len: "off" */
 import React, { Component } from 'react';
 import qs from 'qs';
 import Auth from '../../modules/Auth';
@@ -52,22 +51,21 @@ export default class DashboardPage extends Component {
       }),
     };
 
-    fetch('/api/dashboard', getInit)
-      .then(res => res.json())
-      .then(res => res.data)
-      .then((res) => {
-        const temp = [];
-        res.map(i => temp.push(i));
-        this.setState({
-          allLists: temp,
-        });
+    fetch('/api/dashboard', getInit).then(res => res.json()).then(res => res.data).then((res) => {
+      const temp = [];
+      res.map(i => temp.push(i));
+      this.setState({
+        allLists: temp,
       });
+    });
   }
 
   onCreateItem(e) {
     e.preventDefault();
 
-    if (!this.state.newItem.title) { return; }
+    if (!this.state.newItem.title) {
+      return;
+    }
 
     try {
       fetch('/api/create/item', postInit(this.state.newItem))
@@ -80,7 +78,6 @@ export default class DashboardPage extends Component {
         });
       e.target.newItem = {};
       e.target.reset();
-
     } catch (err) {
       console.error('onCreateItem', err);
     }
@@ -90,7 +87,9 @@ export default class DashboardPage extends Component {
     e.preventDefault();
 
     const title = e.target.newName.value;
-    if (!title) { return; }
+    if (!title) {
+      return;
+    }
 
     try {
       fetch('/api/create/list', postInit({ title }))
@@ -102,7 +101,6 @@ export default class DashboardPage extends Component {
           }
         });
       e.target.newName.value = '';
-
     } catch (err) {
       console.error('onCreateList', err);
     }
@@ -117,24 +115,23 @@ export default class DashboardPage extends Component {
     const newList = this.state.allLists;
     newList
       .find(i => i._id === listID)
-      .listItems
-      .splice(
+      .listItems.splice(
         newList
           .find(i => i._id === listID)
-          .listItems
-          .indexOf(
-            newList
-              .find(i => i._id === listID)
-              .listItems
-              .find(i => i._id === itemID),
+          .listItems.indexOf(
+            newList.find(i => i._id === listID).listItems.find(i => i._id === itemID),
           ),
-      1);
+        1,
+      );
 
     this.setState({ allLists: newList });
 
-    fetch('api/remove/item', postInit({
-      item: itemID,
-    }))
+    fetch(
+      'api/remove/item',
+      postInit({
+        item: itemID,
+      }),
+    )
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -152,16 +149,15 @@ export default class DashboardPage extends Component {
     const listID = e.currentTarget.id.split('_')[1];
 
     const newList = this.state.allLists;
-    newList.splice(
-      newList.indexOf(
-        newList.find(i => i._id === listID),
-      ),
-    1);
+    newList.splice(newList.indexOf(newList.find(i => i._id === listID)), 1);
     this.setState({ allLists: newList });
 
-    fetch('api/remove/list', postInit({
-      item: listID,
-    }))
+    fetch(
+      'api/remove/list',
+      postInit({
+        item: listID,
+      }),
+    )
       .then(res => res.json())
       .then(res => res.data)
       .then((res) => {
@@ -206,18 +202,23 @@ export default class DashboardPage extends Component {
               </label>
             </button>
             {this.state.showNewList &&
-              <form action="/" onSubmit={this.onCreateList} className={s.form} >
+              <form action="/" onSubmit={this.onCreateList} className={s.form}>
                 <input type="text" name="newName" id="newName" className={s.input} />
                 <button type="submit" className={s.inputButton}>
-                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <svg
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       fill="#ddd"
                       d="M12 2q0.414 0 0.707 0.293t0.293 0.707v8h8q0.414 0 0.707 0.293t0.293 0.707-0.293 0.707-0.707 0.293h-8v8q0 0.414-0.293 0.707t-0.707 0.293-0.707-0.293-0.293-0.707v-8h-8q-0.414 0-0.707-0.293t-0.293-0.707 0.293-0.707 0.707-0.293h8v-8q0-0.414 0.293-0.707t0.707-0.293z"
                     />
                   </svg>
                 </button>
-              </form>
-            }
+              </form>}
           </Item>
         </Bar>
 

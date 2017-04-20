@@ -5,7 +5,6 @@ import Bar from '../../components/Bar/Bar.jsx';
 import Item from '../../components/Bar/Item.jsx';
 
 export default class HomePage extends Component {
-
   render() {
     return (
       <div className={s.host}>
@@ -25,7 +24,6 @@ export default class HomePage extends Component {
             </Item>
           </Bar>
         </div>
-
 
         <div className={s.what} id="what">
           <h2 className={s.heading}>What?</h2>

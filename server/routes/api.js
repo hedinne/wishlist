@@ -10,10 +10,8 @@ const List = mongoose.model('List');
 const ListItem = mongoose.model('ListItem');
 const jwtSecret = process.env.JWTSECRET || config.jwtSecret;
 
-
 function returnAllLists(userId, res) {
-  return User
-    .findById(userId)
+  return User.findById(userId)
     .populate({
       path: 'lists',
       populate: {
@@ -39,13 +37,13 @@ router.get('/dashboard', (req, res) => {
   const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
-      success: false, successMessage: 'Token 💩.',
+      success: false,
+      successMessage: 'Token 💩.',
     });
   }
 
   returnAllLists(userId, res);
 });
-
 
 /**
  * Create LIST
@@ -55,14 +53,16 @@ router.post('/create/list', (req, res) => {
   const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
-      success: false, successMessage: 'Token  💩',
+      success: false,
+      successMessage: 'Token  💩',
     });
   }
 
   const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
   if (!payload || !payload.title) {
     return res.status(401).json({
-      success: false, successMessage: 'Payload  💩',
+      success: false,
+      successMessage: 'Payload  💩',
     });
   }
 
@@ -72,15 +72,19 @@ router.post('/create/list', (req, res) => {
   });
   newList.save();
 
-  User.findByIdAndUpdate(userId, {
-    $push: {
-      lists: newList._id,
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $push: {
+        lists: newList._id,
+      },
     },
-  }, (err) => {
-    if (err) console.error('User.update 💩', err);
+    (err) => {
+      if (err) console.error('User.update 💩', err);
 
-    returnAllLists(userId, res);
-  });
+      returnAllLists(userId, res);
+    },
+  );
 });
 
 /**
@@ -91,14 +95,16 @@ router.post('/create/item', (req, res) => {
   const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
-      success: false, successMessage: 'Token  💩',
+      success: false,
+      successMessage: 'Token  💩',
     });
   }
 
   const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
   if (!payload || !payload.title) {
     return res.status(401).json({
-      success: false, successMessage: 'Payload  💩',
+      success: false,
+      successMessage: 'Payload  💩',
     });
   }
 
@@ -112,17 +118,20 @@ router.post('/create/item', (req, res) => {
   });
   newItem.save();
 
-  List.findByIdAndUpdate(newItem.owner, {
-    $push: {
-      listItems: newItem._id,
+  List.findByIdAndUpdate(
+    newItem.owner,
+    {
+      $push: {
+        listItems: newItem._id,
+      },
     },
-  }, (err) => {
-    if (err) console.error('User.update 💩', err);
+    (err) => {
+      if (err) console.error('User.update 💩', err);
 
-    returnAllLists(userId, res);
-  });
+      returnAllLists(userId, res);
+    },
+  );
 });
-
 
 /**
  * Remove ITEM
@@ -132,33 +141,38 @@ router.post('/remove/item', (req, res) => {
   const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
-      success: false, successMessage: 'Token  💩',
+      success: false,
+      successMessage: 'Token  💩',
     });
   }
 
   const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
   if (!payload || !payload.item) {
     return res.status(401).json({
-      success: false, successMessage: 'Payload  💩',
+      success: false,
+      successMessage: 'Payload  💩',
     });
   }
 
-  ListItem
-    .findByIdAndRemove(payload.item, {}, (err, doc) => {
-      if (err) console.error('Item Remove 💩', err);
+  ListItem.findByIdAndRemove(payload.item, {}, (err, doc) => {
+    if (err) console.error('Item Remove 💩', err);
 
-      List
-        .findByIdAndUpdate(doc.owner, {
-          $pull: {
-            listItems: payload.item,
-          },
-        }, (listErr) => {
-          if (listErr) { console.error(listErr); }
-        });
-      returnAllLists(userId, res);
-    });
+    List.findByIdAndUpdate(
+      doc.owner,
+      {
+        $pull: {
+          listItems: payload.item,
+        },
+      },
+      (listErr) => {
+        if (listErr) {
+          console.error(listErr);
+        }
+      },
+    );
+    returnAllLists(userId, res);
+  });
 });
-
 
 /**
  * Remove LIST
@@ -168,31 +182,37 @@ router.post('/remove/list', (req, res) => {
   const userId = jwt.verify(token, jwtSecret).sub;
   if (!token || !userId) {
     return res.status(401).json({
-      success: false, successMessage: 'Token  💩',
+      success: false,
+      successMessage: 'Token  💩',
     });
   }
 
   const payload = mongoSanitize.sanitize(req.body, { replaceWith: '_' });
   if (!payload || !payload.item) {
     return res.status(401).json({
-      success: false, successMessage: 'Payload  💩',
+      success: false,
+      successMessage: 'Payload  💩',
     });
   }
 
-  List
-    .findByIdAndRemove(payload.item, {}, (err, doc) => {
-      if (err) console.error('Item Remove 💩', err);
+  List.findByIdAndRemove(payload.item, {}, (err, doc) => {
+    if (err) console.error('Item Remove 💩', err);
 
-      User
-        .findByIdAndUpdate(doc.owner, {
-          $pull: {
-            lists: payload.item,
-          },
-        }, (listErr) => {
-          if (listErr) { console.error(listErr); }
-        });
-      returnAllLists(userId, res);
-    });
+    User.findByIdAndUpdate(
+      doc.owner,
+      {
+        $pull: {
+          lists: payload.item,
+        },
+      },
+      (listErr) => {
+        if (listErr) {
+          console.error(listErr);
+        }
+      },
+    );
+    returnAllLists(userId, res);
+  });
 });
 
 module.exports = router;

@@ -2,13 +2,7 @@ import React, { PropTypes } from 'react';
 import Input from '../Input/Input.jsx';
 import s from './LoginForm.scss';
 
-const LoginForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  successMessage,
-  user,
-}) => (
+const LoginForm = ({ onSubmit, onChange, errors, successMessage, user }) => (
   <form action="/" onSubmit={onSubmit} className={s.host}>
     <div className={s.container}>
       <h2 className={s.heading}>Sign In</h2>

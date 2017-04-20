@@ -7,10 +7,12 @@ const ListSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  listItems: [{
-    type: Schema.Types.ObjectId,
-    ref: 'ListItem',
-  }],
+  listItems: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'ListItem',
+    },
+  ],
 });
 
 module.exports = mongoose.model('List', ListSchema);

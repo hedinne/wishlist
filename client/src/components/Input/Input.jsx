@@ -37,21 +37,11 @@ export default class Input extends Component {
   }
 
   render() {
-    const {
-      label,
-      name,
-      errorText,
-      onChange,
-      value,
-      required,
-    } = this.props;
+    const { label, name, errorText, onChange, value, required } = this.props;
 
     return (
       <div className={s.host}>
-        <label
-          htmlFor={label}
-          className={s('label', { 'label--active': this.state.focus })}
-        >
+        <label htmlFor={label} className={s('label', { 'label--active': this.state.focus })}>
           {label}
         </label>
         <input

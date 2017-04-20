@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 import HomePage from './containers/HomePage/HomePage.jsx';
 import LoginPage from './containers/LoginPage/LoginPage.jsx';
@@ -23,7 +17,6 @@ const logOut = () => (
 );
 
 export default class Routing extends Component {
-
   render() {
     return (
       <Router>
@@ -32,11 +25,10 @@ export default class Routing extends Component {
           <Route
             exact
             path="/"
-            render={() => (
-              Auth.isUserAuthenticated()
-              ? (<Route component={DashboardPage} />)
-              : (<Route component={HomePage} />)
-            )}
+            render={() =>
+              (Auth.isUserAuthenticated()
+                ? <Route component={DashboardPage} />
+                : <Route component={HomePage} />)}
           />
 
           <Route exact path="/register" component={SignUpPage} />

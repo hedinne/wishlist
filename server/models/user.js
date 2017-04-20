@@ -11,10 +11,12 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   name: String,
-  lists: [{
-    type: Schema.Types.ObjectId,
-    ref: 'List',
-  }],
+  lists: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'List',
+    },
+  ],
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, callback) {

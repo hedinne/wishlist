@@ -34,8 +34,7 @@ function validateSignupForm(payload) {
   }
 
   return {
-    success:
-    isFormValid,
+    success: isFormValid,
     message,
     errors,
   };
@@ -77,7 +76,6 @@ router.post('/signup', (req, res, next) => {
     });
   }
 
-
   return passport.authenticate('local-signup', (err) => {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -113,7 +111,6 @@ router.post('/login', (req, res, next) => {
     });
   }
 
-
   return passport.authenticate('local-login', (err, token, userData) => {
     if (err) {
       if (err.name === 'IncorrectCredentialsError') {
@@ -128,7 +125,6 @@ router.post('/login', (req, res, next) => {
         message: 'Could not process the form.',
       });
     }
-
 
     return res.json({
       success: true,

@@ -8,7 +8,6 @@ import Item from '../../components/Bar/Item.jsx';
 import s from './SignUpPage.scss';
 
 export default class SignUpPage extends Component {
-
   constructor(props, context) {
     super(props, context);
 
@@ -42,23 +41,20 @@ export default class SignUpPage extends Component {
       }),
     };
 
-    fetch('/auth/signup', fetchInit)
-      .then(res => res.json())
-      .then((response) => {
-        if (response.success) {
-          this.setState({ errors: {} });
+    fetch('/auth/signup', fetchInit).then(res => res.json()).then((response) => {
+      if (response.success) {
+        this.setState({ errors: {} });
 
-          localStorage.setItem('successMessage', response.message);
+        localStorage.setItem('successMessage', response.message);
 
-          // this.context.router.replace('/signin');
-          this.setState({ push: true });
-        } else {
-          const errors = response.errors ? response.errors : {};
-          errors.summary = response.message;
-          this.setState({ errors });
-        }
-      },
-    );
+        // this.context.router.replace('/signin');
+        this.setState({ push: true });
+      } else {
+        const errors = response.errors ? response.errors : {};
+        errors.summary = response.message;
+        this.setState({ errors });
+      }
+    });
   }
 
   changeUser(e) {

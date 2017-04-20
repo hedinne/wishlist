@@ -6,7 +6,4 @@ import Routing from './Routing.jsx';
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-ReactDOM.render(
-  <Routing />,
-  document.getElementById('app'),
-);
+ReactDOM.render(<Routing />, document.getElementById('app'));

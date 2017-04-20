@@ -3,14 +3,8 @@ import { Link } from 'react-router-dom';
 import s from './Item.scss';
 
 export default class Item extends Component {
-
   render() {
-    const {
-      to,
-      children,
-      logo,
-      className,
-    } = this.props;
+    const { to, children, logo, className } = this.props;
 
     if (to) {
       return (

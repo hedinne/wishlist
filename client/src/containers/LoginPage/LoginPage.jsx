@@ -1,5 +1,4 @@
 /* eslint no-undef: "off" */
-
 import React, { Component, PropTypes } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm.jsx';
@@ -8,9 +7,7 @@ import Bar from '../../components/Bar/Bar.jsx';
 import Item from '../../components/Bar/Item.jsx';
 import s from './LoginPage.scss';
 
-
 export default class LoginPage extends Component {
-
   constructor(props, context) {
     super(props, context);
 
@@ -51,23 +48,20 @@ export default class LoginPage extends Component {
       }),
     };
 
-    fetch('/auth/login', fetchInit)
-      .then(res => res.json())
-      .then((response) => {
-        if (response.success) {
-          this.setState({ errors: {} });
+    fetch('/auth/login', fetchInit).then(res => res.json()).then((response) => {
+      if (response.success) {
+        this.setState({ errors: {} });
 
-          Auth.authenticateUser(response.token);
+        Auth.authenticateUser(response.token);
 
-          this.setState({ push: true });
-        } else {
-          const errors = response.errors ? response.errors : {};
-          errors.summary = response.message;
+        this.setState({ push: true });
+      } else {
+        const errors = response.errors ? response.errors : {};
+        errors.summary = response.message;
 
-          this.setState({ errors });
-        }
-      },
-    );
+        this.setState({ errors });
+      }
+    });
   }
 
   changeUser(event) {
@@ -96,7 +90,7 @@ export default class LoginPage extends Component {
 
         <div className={s.bottom}>
           <Item to="/register" className={s.item}>
-            Don&apos;t have an account?
+            Don&apost have an account?
           </Item>
         </div>
         {this.state.push && <Redirect push to="/" />}

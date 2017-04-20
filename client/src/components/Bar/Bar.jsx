@@ -2,14 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import s from './Bar.scss';
 
 export default class Bar extends Component {
-
   render() {
-
-    const {
-      children,
-      bottom,
-      className,
-    } = this.props;
+    const { children, bottom, className } = this.props;
 
     return (
       <div className={s('host', className, { bottom })}>

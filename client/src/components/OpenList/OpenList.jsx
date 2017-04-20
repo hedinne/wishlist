@@ -5,7 +5,6 @@ import s from './OpenList.scss';
 import Details from '../Details/Details.jsx';
 
 export default class OpenList extends Component {
-
   constructor(...args) {
     super(...args);
 
@@ -24,10 +23,7 @@ export default class OpenList extends Component {
   }
 
   render() {
-    const {
-      title,
-      listItems,
-    } = this.props.list;
+    const { title, listItems } = this.props.list;
 
     return (
       <div className={s.host}>
@@ -35,31 +31,27 @@ export default class OpenList extends Component {
         <div className={s.content}>
           <div className={s.list}>
             <ul className={s.ul}>
-              {listItems && listItems.map(item => (
-                <li key={item._id} className={s.li}>
-                  <button id={item._id} className={s.item} onClick={this.openItem}>
-                    {item.title}
-                  </button>
-                  <MediaQuery query="(max-width: 768px)">
-                    {this.state.openID === item._id && (
-                      <Details
-                        openItem={listItems.filter(i => i._id === this.state.openID)[0]}
-                        readOnly
-                      />
-                    )}
-                  </MediaQuery>
-                </li>
-              ))}
+              {listItems &&
+                listItems.map(item => (
+                  <li key={item._id} className={s.li}>
+                    <button id={item._id} className={s.item} onClick={this.openItem}>
+                      {item.title}
+                    </button>
+                    <MediaQuery query="(max-width: 768px)">
+                      {this.state.openID === item._id &&
+                        <Details
+                          openItem={listItems.filter(i => i._id === this.state.openID)[0]}
+                          readOnly
+                        />}
+                    </MediaQuery>
+                  </li>
+                ))}
             </ul>
 
           </div>
-          <MediaQuery query="(min-width: 768px)" >
-            {this.state.openID && (
-              <Details
-                openItem={listItems.filter(i => i._id === this.state.openID)[0]}
-                readOnly
-              />
-            )}
+          <MediaQuery query="(min-width: 768px)">
+            {this.state.openID &&
+              <Details openItem={listItems.filter(i => i._id === this.state.openID)[0]} readOnly />}
           </MediaQuery>
         </div>
       </div>

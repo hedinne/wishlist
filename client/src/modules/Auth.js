@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 
 class Auth {
-
   static authenticateUser(token) {
     localStorage.setItem('token', token);
   }

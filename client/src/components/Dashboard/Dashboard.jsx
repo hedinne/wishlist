@@ -3,7 +3,6 @@ import s from './Dashboard.scss';
 import List from '../List/List.jsx';
 
 export default class Dashboard extends Component {
-
   constructor(...args) {
     super(...args);
 
@@ -42,23 +41,16 @@ export default class Dashboard extends Component {
     }
   }
 
-
   render() {
-    const {
-      allLists,
-      onCreateItem,
-      onRemoveItem,
-      onRemoveList,
-      onChangeNewItem,
-    } = this.props;
+    const { allLists, onCreateItem, onRemoveItem, onRemoveList, onChangeNewItem } = this.props;
 
     const openList = allLists.find(list => list._id === this.state.openItem.owner);
 
     return (
       <div className={s.host}>
 
-        {!!this.state.openItem._id && openList ? (
-          <List
+        {!!this.state.openItem._id && openList
+          ? <List
             key={openList._id}
             list={openList}
             onCreateItem={onCreateItem}
@@ -71,30 +63,31 @@ export default class Dashboard extends Component {
             onClickAddNew={this.onClickAddNew}
             isNew={this.state.openItem._id === 'new'}
           />
-        ) : (
-          allLists && allLists.map(item =>
-            <List
-              key={item._id}
-              list={item}
-              onCreateItem={onCreateItem}
-              onRemoveItem={onRemoveItem}
-              onRemoveList={onRemoveList}
-              itemSelected={this.itemSelected}
-              listClosed={this.listClosed}
-              openItem={(typeof this.state.openItem._id !== 'undefined'
-                && this.state.openItem.owner === item._id) && this.state.openItem}
-              onChangeNewItem={onChangeNewItem}
-              onClickAddNew={this.onClickAddNew}
-              isNew={this.state.openItem._id === 'new'}
-            />,
-          )
-        )}
+          : allLists &&
+              allLists.map(item => (
+                <List
+                  key={item._id}
+                  list={item}
+                  onCreateItem={onCreateItem}
+                  onRemoveItem={onRemoveItem}
+                  onRemoveList={onRemoveList}
+                  itemSelected={this.itemSelected}
+                  listClosed={this.listClosed}
+                  openItem={
+                    typeof this.state.openItem._id !== 'undefined' &&
+                      this.state.openItem.owner === item._id &&
+                      this.state.openItem
+                  }
+                  onChangeNewItem={onChangeNewItem}
+                  onClickAddNew={this.onClickAddNew}
+                  isNew={this.state.openItem._id === 'new'}
+                />
+              ))}
 
       </div>
     );
   }
 }
-
 
 Dashboard.propTypes = {
   allLists: PropTypes.any,

@@ -7,10 +7,9 @@ import Item from '../../components/Bar/Item.jsx';
 import s from './OpenListPage.scss';
 
 export default class OpenListPage extends Component {
-
   constructor(...args) {
     super(...args);
-    this.state = ({ list: '' });
+    this.state = { list: '' };
   }
 
   componentDidMount() {
@@ -21,14 +20,11 @@ export default class OpenListPage extends Component {
         'Content-type': 'application/x-www-form-urlencoded',
       }),
     };
-    fetch('/openlist', getInit)
-      .then(res => res.json())
-      .then(res => res.data)
-      .then((res) => {
-        this.setState({
-          list: res,
-        });
+    fetch('/openlist', getInit).then(res => res.json()).then(res => res.data).then((res) => {
+      this.setState({
+        list: res,
       });
+    });
   }
 
   render() {
