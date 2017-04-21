@@ -6,7 +6,6 @@ const router = new express.Router();
 
 /**
  * Validating the sign up form.
- *
  */
 
 function validateSignupForm(payload) {

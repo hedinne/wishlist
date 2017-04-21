@@ -79,12 +79,11 @@ router.post('/create/list', (req, res) => {
         lists: newList._id,
       },
     },
-    (err) => {
-      if (err) console.error('User.update 💩', err);
+  (err) => {
+    if (err) console.error('User.update 💩', err);
 
-      returnAllLists(userId, res);
-    },
-  );
+    returnAllLists(userId, res);
+  });
 });
 
 /**
@@ -125,12 +124,11 @@ router.post('/create/item', (req, res) => {
         listItems: newItem._id,
       },
     },
-    (err) => {
-      if (err) console.error('User.update 💩', err);
+  (err) => {
+    if (err) console.error('User.update 💩', err);
 
-      returnAllLists(userId, res);
-    },
-  );
+    returnAllLists(userId, res);
+  });
 });
 
 /**
@@ -164,12 +162,11 @@ router.post('/remove/item', (req, res) => {
           listItems: payload.item,
         },
       },
-      (listErr) => {
-        if (listErr) {
-          console.error(listErr);
-        }
-      },
-    );
+    (listErr) => {
+      if (listErr) {
+        console.error(listErr);
+      }
+    });
     returnAllLists(userId, res);
   });
 });
@@ -205,12 +202,11 @@ router.post('/remove/list', (req, res) => {
           lists: payload.item,
         },
       },
-      (listErr) => {
-        if (listErr) {
-          console.error(listErr);
-        }
-      },
-    );
+    (listErr) => {
+      if (listErr) {
+        console.error(listErr);
+      }
+    });
     returnAllLists(userId, res);
   });
 });

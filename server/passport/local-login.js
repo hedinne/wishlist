@@ -4,54 +4,52 @@ const PassportLocalStrategy = require('passport-local').Strategy;
 const config = require('../../config');
 const jwtSecret = process.env.JWTSECRET || config.jwtSecret;
 
-module.exports = new PassportLocalStrategy(
-  {
-    usernameField: 'email',
-    passwordField: 'password',
-    session: false,
-    passReqToCallback: true,
-  },
-  (req, email, password, done) => {
-    const userData = {
-      email: email.trim(),
-      password: password.trim(),
-    };
+module.exports = new PassportLocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  session: false,
+  passReqToCallback: true,
+},
+(req, email, password, done) => {
+  const userData = {
+    email: email.trim(),
+    password: password.trim(),
+  };
 
-    return User.findOne({ email: userData.email }, (err, user) => {
+  return User.findOne({ email: userData.email }, (err, user) => {
+    if (err) {
+      return done(err);
+    }
+
+    if (!user) {
+      const error = new Error('Incorrect email or password');
+      error.name = 'IncorrectCredentialsError';
+
+      return done(error);
+    }
+
+    return user.comparePassword(userData.password, (passwordErr, isMatch) => {
       if (err) {
         return done(err);
       }
 
-      if (!user) {
+      if (!isMatch) {
         const error = new Error('Incorrect email or password');
         error.name = 'IncorrectCredentialsError';
 
         return done(error);
       }
 
-      return user.comparePassword(userData.password, (passwordErr, isMatch) => {
-        if (err) {
-          return done(err);
-        }
+      const payload = {
+        sub: user._id,
+      };
 
-        if (!isMatch) {
-          const error = new Error('Incorrect email or password');
-          error.name = 'IncorrectCredentialsError';
+      const token = jwt.sign(payload, jwtSecret);
+      const data = {
+        name: user.name,
+      };
 
-          return done(error);
-        }
-
-        const payload = {
-          sub: user._id,
-        };
-
-        const token = jwt.sign(payload, jwtSecret);
-        const data = {
-          name: user.name,
-        };
-
-        return done(null, token, data);
-      });
+      return done(null, token, data);
     });
-  },
-);
+  });
+});
