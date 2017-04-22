@@ -90,7 +90,7 @@ export default class LoginPage extends Component {
 
         <div className={s.bottom}>
           <Item to="/register" className={s.item}>
-            Don&apost have an account?
+            Don&apos;t have an account?
           </Item>
         </div>
         {this.state.push && <Redirect push to="/" />}
