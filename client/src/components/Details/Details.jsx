@@ -15,7 +15,7 @@ const Details = ({ onChangeNewItem, onCreateItem, listID, openItem, onRemoveItem
             value={openItem.title}
             readOnly
           />
-          : <input className={s.input} type="text" name="title" id={`${listID}_title`} />}
+          : <input className={s.input} type="text" name="title" id={`${listID}_title`} autoComplete="off" />}
       </label>
 
       <label htmlFor className={s.label}>
@@ -29,7 +29,7 @@ const Details = ({ onChangeNewItem, onCreateItem, listID, openItem, onRemoveItem
             value={openItem.link}
             readOnly
           />
-          : <input className={s.input} type="url" name="link" id={`${listID}_link`} />}
+          : <input className={s.input} type="url" name="link" id={`${listID}_link`} autoComplete="off" />}
       </label>
 
       <label htmlFor className={s.label}>
@@ -43,7 +43,7 @@ const Details = ({ onChangeNewItem, onCreateItem, listID, openItem, onRemoveItem
             value={openItem.price}
             readOnly
           />
-          : <input className={s.input} type="text" name="price" id={`${listID}_price`} />}
+          : <input className={s.input} type="text" name="price" id={`${listID}_price`} autoComplete="off" />}
       </label>
 
       <label htmlFor className={s.label}>
