@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './Dashboard.scss';
 import List from '../List/List.jsx';
 
@@ -50,20 +51,22 @@ export default class Dashboard extends Component {
       <div className={s.host}>
 
         {!!this.state.openItem._id && openList
-          ? <List
-            key={openList._id}
-            list={openList}
-            onCreateItem={onCreateItem}
-            onRemoveItem={onRemoveItem}
-            onRemoveList={onRemoveList}
-            itemSelected={this.itemSelected}
-            listClosed={this.listClosed}
-            openItem={this.state.openItem}
-            onChangeNewItem={onChangeNewItem}
-            onClickAddNew={this.onClickAddNew}
-            isNew={this.state.openItem._id === 'new'}
-          />
-          : allLists &&
+          ?
+            <List
+              key={openList._id}
+              list={openList}
+              onCreateItem={onCreateItem}
+              onRemoveItem={onRemoveItem}
+              onRemoveList={onRemoveList}
+              itemSelected={this.itemSelected}
+              listClosed={this.listClosed}
+              openItem={this.state.openItem}
+              onChangeNewItem={onChangeNewItem}
+              onClickAddNew={this.onClickAddNew}
+              isNew={this.state.openItem._id === 'new'}
+            />
+          :
+            allLists &&
               allLists.map(item => (
                 <List
                   key={item._id}
@@ -82,8 +85,9 @@ export default class Dashboard extends Component {
                   onClickAddNew={this.onClickAddNew}
                   isNew={this.state.openItem._id === 'new'}
                 />
-              ))}
-
+              ),
+            )
+          }
       </div>
     );
   }

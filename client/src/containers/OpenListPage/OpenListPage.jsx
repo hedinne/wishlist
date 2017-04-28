@@ -1,5 +1,6 @@
 /* eslint no-undef: "off" */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import qs from 'qs';
 import OpenList from '../../components/OpenList/OpenList.jsx';
 import Bar from '../../components/Bar/Bar.jsx';

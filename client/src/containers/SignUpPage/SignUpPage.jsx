@@ -1,6 +1,7 @@
 /* eslint no-undef: "off" */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import SignUpForm from '../../components/SignUpForm/SignUpForm.jsx';
 import Bar from '../../components/Bar/Bar.jsx';

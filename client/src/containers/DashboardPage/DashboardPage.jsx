@@ -51,7 +51,10 @@ export default class DashboardPage extends Component {
       }),
     };
 
-    fetch('/api/dashboard', getInit).then(res => res.json()).then(res => res.data).then((res) => {
+    fetch('/api/dashboard', getInit)
+    .then(res => res.json())
+    .then(res => res.data)
+    .then((res) => {
       const temp = [];
       res.map(i => temp.push(i));
       this.setState({
@@ -203,7 +206,13 @@ export default class DashboardPage extends Component {
             </button>
             {this.state.showNewList &&
               <form action="/" onSubmit={this.onCreateList} className={s.form}>
-                <input type="text" name="newName" id="newName" className={s.input} autoComplete="off" />
+                <input
+                  type="text"
+                  name="newName"
+                  id="newName"
+                  className={s.input}
+                  autoComplete="off"
+                />
                 <button type="submit" className={s.inputButton}>
                   <svg
                     version="1.1"

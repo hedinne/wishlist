@@ -1,5 +1,6 @@
 /* eslint no-undef: "off", max-len: "off" */
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import MediaQuery from 'react-responsive';
 
@@ -30,6 +31,7 @@ export default class List extends Component {
   }
 
   createNewItem() {
+    this.titleButton.blur();
     if (!this.props.isNew) {
       this.props.onClickAddNew(this.props.list._id);
     } else {
@@ -62,7 +64,7 @@ export default class List extends Component {
     return (
       <div className={hostClasses}>
         <div className={s.headingContainer}>
-          <button onClick={this.createNewItem} className={s('iconButton', 'titleButton')}>
+          <button onClick={this.createNewItem} className={s('iconButton', 'titleButton')} ref={(c) => { this.titleButton = c; }} >
             <h4 className={s.title}>
               {list.title}
             </h4>

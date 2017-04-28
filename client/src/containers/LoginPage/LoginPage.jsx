@@ -1,5 +1,6 @@
 /* eslint no-undef: "off" */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/LoginForm.jsx';
 import Auth from '../../modules/Auth';
@@ -48,7 +49,9 @@ export default class LoginPage extends Component {
       }),
     };
 
-    fetch('/auth/login', fetchInit).then(res => res.json()).then((response) => {
+    fetch('/auth/login', fetchInit)
+    .then(res => res.json())
+    .then((response) => {
       if (response.success) {
         this.setState({ errors: {} });
 
