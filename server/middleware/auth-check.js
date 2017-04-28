@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('mongoose').model('User');
-const config = require('../../config');
-const jwtSecret = process.env.JWTSECRET || config.jwtSecret;
+require('dotenv').config();
+
+const jwtSecret = process.env.JWTSECRET;
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {

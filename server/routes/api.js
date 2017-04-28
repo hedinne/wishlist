@@ -1,14 +1,16 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const config = require('../../config');
 const mongoose = require('mongoose');
 const mongoSanitize = require('express-mongo-sanitize');
+require('dotenv').config();
+
+const jwtSecret = process.env.JWTSECRET;
 
 const router = new express.Router();
 const User = mongoose.model('User');
 const List = mongoose.model('List');
 const ListItem = mongoose.model('ListItem');
-const jwtSecret = process.env.JWTSECRET || config.jwtSecret;
+
 
 function returnAllLists(userId, res) {
   return User.findById(userId)

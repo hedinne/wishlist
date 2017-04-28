@@ -4,14 +4,15 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const helmet = require('helmet');
 const webpack = require('webpack');
-const config = require('./config');
 const wpConfig = require('./webpack.config.dev');
-
-require('./server/models').connect(process.env.MONGODB_URI || config.dbUri);
+const mongooseModels = require('./server/models');
+require('dotenv').config();
 
 const devEnv = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const DEVPORT = process.env.DEVPORT || 3000;
+mongooseModels.connect(process.env.MONGODB_URI);
+
 const app = express();
 
 app.use(helmet());
@@ -36,7 +37,6 @@ const openListRoutes = require('./server/routes/openlist');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 app.use('/openlist', openListRoutes);
-
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
