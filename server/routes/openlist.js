@@ -9,12 +9,12 @@ router.post('/', (req, res) => {
   if (!id.match(/[a-z0-9]{24}/g)) {
     return res.status(401).json({
       success: false,
-      successMessage: '💩',
+      successMessage: 'Error',
     });
   }
 
   List.findById(id).populate({ path: 'listItems' }).exec((userErr, doc) => {
-    if (userErr) console.error('💩', userErr);
+    if (userErr) console.error('Error', userErr);
     if (doc) {
       return res.status(200).json({
         success: true,
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
     }
     return res.status(401).json({
       success: false,
-      successMessage: '💩',
+      successMessage: 'Error',
     });
   });
 });

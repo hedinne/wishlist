@@ -21,7 +21,7 @@ function returnAllLists(userId, res) {
       },
     })
     .exec((userErr, doc) => {
-      if (userErr) console.error('User.populate 💩', userErr);
+      if (userErr) console.error('User.populate error', userErr);
 
       return res.status(200).json({
         success: true,
@@ -40,7 +40,7 @@ router.get('/dashboard', (req, res) => {
   if (!token || !userId) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Token 💩.',
+      successMessage: 'Token error.',
     });
   }
 
@@ -56,7 +56,7 @@ router.post('/create/list', (req, res) => {
   if (!token || !userId) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Token  💩',
+      successMessage: 'Token  error',
     });
   }
 
@@ -64,7 +64,7 @@ router.post('/create/list', (req, res) => {
   if (!payload || !payload.title) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Payload  💩',
+      successMessage: 'Payload Error',
     });
   }
 
@@ -82,7 +82,7 @@ router.post('/create/list', (req, res) => {
       },
     },
   (err) => {
-    if (err) console.error('User.update 💩', err);
+    if (err) console.error('User.update Error', err);
 
     returnAllLists(userId, res);
   });
@@ -97,7 +97,7 @@ router.post('/create/item', (req, res) => {
   if (!token || !userId) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Token  💩',
+      successMessage: 'Token Error',
     });
   }
 
@@ -105,7 +105,7 @@ router.post('/create/item', (req, res) => {
   if (!payload || !payload.title) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Payload  💩',
+      successMessage: 'Payload Error',
     });
   }
 
@@ -127,7 +127,7 @@ router.post('/create/item', (req, res) => {
       },
     },
   (err) => {
-    if (err) console.error('User.update 💩', err);
+    if (err) console.error('User.update Error', err);
 
     returnAllLists(userId, res);
   });
@@ -142,7 +142,7 @@ router.post('/remove/item', (req, res) => {
   if (!token || !userId) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Token  💩',
+      successMessage: 'Token Error',
     });
   }
 
@@ -150,12 +150,12 @@ router.post('/remove/item', (req, res) => {
   if (!payload || !payload.item) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Payload  💩',
+      successMessage: 'Payload Error',
     });
   }
 
   ListItem.findByIdAndRemove(payload.item, {}, (err, doc) => {
-    if (err) console.error('Item Remove 💩', err);
+    if (err) console.error('Item Remove Error', err);
 
     List.findByIdAndUpdate(
       doc.owner,
@@ -182,7 +182,7 @@ router.post('/remove/list', (req, res) => {
   if (!token || !userId) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Token  💩',
+      successMessage: 'Token Error',
     });
   }
 
@@ -190,12 +190,12 @@ router.post('/remove/list', (req, res) => {
   if (!payload || !payload.item) {
     return res.status(401).json({
       success: false,
-      successMessage: 'Payload  💩',
+      successMessage: 'Payload Error',
     });
   }
 
   List.findByIdAndRemove(payload.item, {}, (err, doc) => {
-    if (err) console.error('Item Remove 💩', err);
+    if (err) console.error('Item Remove Error', err);
 
     User.findByIdAndUpdate(
       doc.owner,

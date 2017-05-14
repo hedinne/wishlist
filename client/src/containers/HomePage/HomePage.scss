@@ -29,6 +29,8 @@
   text-align: center;
   text-transform: uppercase;
 
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+
   @include viewport(tablet) {
     font-size: 12vw;
   }
@@ -99,5 +101,19 @@
   }
   @include viewport(desktop) {
     font-size: 32px;
+  }
+}
+
+
+@keyframes tracking-in-expand {
+  0% {
+    opacity: 0;
+    letter-spacing: -0.5em;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
   }
 }
