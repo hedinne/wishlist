@@ -28,8 +28,8 @@ export default class HomePage extends Component {
         <div className={s.what} id="what">
           <h2 className={s.heading}>What?</h2>
           <p className={s.text}>
-            Wishlist is a app that helps you keep track of your wishlists and share
-            them with thouse who are about to give you a gift.
+            Wishlist is an app that helps you keep track of your wishlists and share
+            them with those who are about to give you a gift.
           </p>
         </div>
       </div>
