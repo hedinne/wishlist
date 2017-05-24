@@ -155,7 +155,12 @@ router.post('/remove/item', (req, res) => {
   }
 
   ListItem.findByIdAndRemove(payload.item, {}, (err, doc) => {
-    if (err) console.error('Item Remove Error', err);
+    if (err || !doc) {
+      return res.status(401).json({
+        success: false,
+        successMessage: 'Item Remove Error',
+      });
+    }
 
     List.findByIdAndUpdate(
       doc.owner,
@@ -195,7 +200,12 @@ router.post('/remove/list', (req, res) => {
   }
 
   List.findByIdAndRemove(payload.item, {}, (err, doc) => {
-    if (err) console.error('Item Remove Error', err);
+    if (err || !doc) {
+      return res.status(401).json({
+        success: false,
+        successMessage: 'List Remove Error',
+      });
+    }
 
     User.findByIdAndUpdate(
       doc.owner,

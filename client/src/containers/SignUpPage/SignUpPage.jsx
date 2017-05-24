@@ -48,7 +48,6 @@ export default class SignUpPage extends Component {
 
         localStorage.setItem('successMessage', response.message);
 
-        // this.context.router.replace('/signin');
         this.setState({ push: true });
       } else {
         const errors = response.errors ? response.errors : {};
