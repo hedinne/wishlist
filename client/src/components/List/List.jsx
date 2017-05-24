@@ -123,8 +123,6 @@ export default class List extends Component {
             {open &&
               <button onClick={listClosed} title="Minimize" className={s.iconButton}>
                 <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -152,8 +150,6 @@ export default class List extends Component {
             <CopyToClipboard text={url} onCopy={() => this.setState({ copied: true })}>
               <button title="Copy to Clipboard" className={s.iconButton}>
                 <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -170,8 +166,6 @@ export default class List extends Component {
             {this.state.copied &&
               <button className={s.iconButton}>
                 <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"

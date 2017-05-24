@@ -18,6 +18,18 @@ function postInit(payload) {
   };
 }
 
+async function fetchFromServer(url, init) {
+  const response = await fetch(url, init);
+  const body = await response.json();
+
+  if (response.status !== 200) {
+    throw Error(body.statusText);
+  }
+
+  return body.data;
+}
+
+
 export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
@@ -51,62 +63,40 @@ export default class DashboardPage extends Component {
       }),
     };
 
-    fetch('/api/dashboard', getInit)
-    .then(res => res.json())
-    .then(res => res.data)
-    .then((res) => {
-      const temp = [];
-      res.map(i => temp.push(i));
-      this.setState({
-        allLists: temp,
-      });
-    });
+    fetchFromServer('/api/dashboard', getInit)
+      .then(res =>
+        this.setState({
+          allLists: res,
+        }),
+      )
+      .catch(err => console.error('💩', err));
   }
 
   onCreateItem(e) {
     e.preventDefault();
+    if (!this.state.newItem.title) { return; }
 
-    if (!this.state.newItem.title) {
-      return;
-    }
+    fetchFromServer('/api/create/item', postInit(this.state.newItem))
+    .then((res) => {
+      this.setState({
+        allLists: res,
+        newItem: {},
+      });
+    })
+    .catch(err => console.error('💩', err));
 
-    try {
-      fetch('/api/create/item', postInit(this.state.newItem))
-        .then(res => res.json())
-        .then(res => res.data)
-        .then((res) => {
-          if (typeof res[0] !== 'undefined') {
-            this.setState({ allLists: res });
-          }
-        });
-      e.target.newItem = {};
-      e.target.reset();
-    } catch (err) {
-      console.error('onCreateItem', err);
-    }
+    e.target.reset();
   }
 
   onCreateList(e) {
     e.preventDefault();
 
     const title = e.target.newName.value;
-    if (!title) {
-      return;
-    }
+    if (!title) { return; }
 
-    try {
-      fetch('/api/create/list', postInit({ title }))
-        .then(res => res.json())
-        .then(res => res.data)
-        .then((res) => {
-          if (typeof res[0] !== 'undefined') {
-            this.setState({ allLists: res });
-          }
-        });
-      e.target.newName.value = '';
-    } catch (err) {
-      console.error('onCreateList', err);
-    }
+    fetchFromServer('/api/create/list', postInit({ title }))
+      .then(res => this.setState({ allLists: res }))
+      .catch(err => console.error('💩', err));
   }
 
   onRemoveItem(e) {
@@ -129,21 +119,9 @@ export default class DashboardPage extends Component {
 
     this.setState({ allLists: newList });
 
-    fetch(
-      'api/remove/item',
-      postInit({
-        item: itemID,
-      }),
-    )
-      .then(res => res.json())
-      .then(res => res.data)
-      .then((res) => {
-        const tempI = [];
-        res.map(i => tempI.push(i));
-        this.setState({
-          allLists: tempI,
-        });
-      });
+    fetchFromServer('api/remove/item', postInit({ item: itemID }))
+      .then((res) => { this.setState({ allLists: res }); })
+      .catch(err => console.error('💩', err));
   }
 
   onRemoveList(e) {
@@ -155,21 +133,9 @@ export default class DashboardPage extends Component {
     newList.splice(newList.indexOf(newList.find(i => i._id === listID)), 1);
     this.setState({ allLists: newList });
 
-    fetch(
-      'api/remove/list',
-      postInit({
-        item: listID,
-      }),
-    )
-      .then(res => res.json())
-      .then(res => res.data)
-      .then((res) => {
-        const tempI = [];
-        res.map(i => tempI.push(i));
-        this.setState({
-          allLists: tempI,
-        });
-      });
+    fetchFromServer('api/remove/list', postInit({ item: listID }))
+      .then((res) => { this.setState({ allLists: res }); })
+      .catch(err => console.error('💩', err));
   }
 
   onChangeNewItem(e) {
