@@ -26,9 +26,9 @@ export default class Routing extends Component {
             exact
             path="/"
             render={() =>
-              (Auth.isUserAuthenticated()
+              Auth.isUserAuthenticated()
                 ? <Route component={DashboardPage} />
-                : <Route component={HomePage} />)}
+                : <Route component={HomePage} />}
           />
 
           <Route exact path="/register" component={SignUpPage} />

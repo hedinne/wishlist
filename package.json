@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Wishlist web app.",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.0<9"
+  },
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
     "nodemon": "NODE_ENV=development nodemon index.js",

@@ -7,7 +7,6 @@ const router = new express.Router();
 /**
  * Validating the sign up form.
  */
-
 function validateSignupForm(payload) {
   const errors = {};
   let isFormValid = true;
@@ -75,7 +74,7 @@ router.post('/signup', (req, res, next) => {
     });
   }
 
-  return passport.authenticate('local-signup', (err) => {
+  return passport.authenticate('local-signup', err => {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
         return res.status(409).json({

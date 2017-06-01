@@ -1,16 +1,17 @@
+/* eslint global-require: "off"*/
 const mongoose = require('mongoose');
 
-module.exports.connect = (uri) => {
+module.exports.connect = uri => {
   mongoose.connect(uri);
 
   mongoose.Promise = global.Promise;
 
-  mongoose.connection.on('error', (err) => {
-    console.error(`Mongoose connection error: ${err}`); // eslint-disable-line
+  mongoose.connection.on('error', err => {
+    console.error(`Mongoose connection error: ${err}`);
     process.exit(1);
   });
 
-  require('./user'); // eslint-disable-line
-  require('./list'); // eslint-disable-line
-  require('./listItem'); // eslint-disable-line
+  require('./user');
+  require('./list');
+  require('./listItem');
 };

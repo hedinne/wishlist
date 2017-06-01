@@ -11,7 +11,6 @@ const User = mongoose.model('User');
 const List = mongoose.model('List');
 const ListItem = mongoose.model('ListItem');
 
-
 function returnAllLists(userId, res) {
   return User.findById(userId)
     .populate({
@@ -81,11 +80,12 @@ router.post('/create/list', (req, res) => {
         lists: newList._id,
       },
     },
-  (err) => {
-    if (err) console.error('User.update Error', err);
+    err => {
+      if (err) console.error('User.update Error', err);
 
-    returnAllLists(userId, res);
-  });
+      returnAllLists(userId, res);
+    },
+  );
 });
 
 /**
@@ -126,11 +126,12 @@ router.post('/create/item', (req, res) => {
         listItems: newItem._id,
       },
     },
-  (err) => {
-    if (err) console.error('User.update Error', err);
+    err => {
+      if (err) console.error('User.update Error', err);
 
-    returnAllLists(userId, res);
-  });
+      returnAllLists(userId, res);
+    },
+  );
 });
 
 /**
@@ -169,11 +170,12 @@ router.post('/remove/item', (req, res) => {
           listItems: payload.item,
         },
       },
-    (listErr) => {
-      if (listErr) {
-        console.error(listErr);
-      }
-    });
+      listErr => {
+        if (listErr) {
+          console.error(listErr);
+        }
+      },
+    );
     returnAllLists(userId, res);
   });
 });
@@ -214,11 +216,12 @@ router.post('/remove/list', (req, res) => {
           lists: payload.item,
         },
       },
-    (listErr) => {
-      if (listErr) {
-        console.error(listErr);
-      }
-    });
+      listErr => {
+        if (listErr) {
+          console.error(listErr);
+        }
+      },
+    );
     returnAllLists(userId, res);
   });
 });
